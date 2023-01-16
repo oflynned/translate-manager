@@ -12,6 +12,7 @@ type Member {
 
 type InvitedMember {
     invitedAt: DateTime!
+    user: UserResult
 }
 
 union MemberResult = Member | InvitedMember
