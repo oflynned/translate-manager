@@ -1,0 +1,35 @@
+enum Gender {
+    MALE
+    FEMALE
+}
+
+type Term {
+    id: ID!
+    domain: String!
+    declension: Int!
+    gender: Gender!
+    term: String!
+    languageCode: String!
+    translations: [Translation!]
+}
+
+type Translation {
+    languageCode: String!
+    terms: [String!]
+}
+
+type TermNotFound {
+    message: String!
+}
+
+union TermResult = Term | TermNotFound
+
+extend type Query {
+    getTermsByDomain(domain:String): [TermResult!]
+    getUntranslatedTerms: [TermResult!]
+}
+
+extend type Mutation {
+    addTranslation(termId: ID!, translation: String!, languageCode: String!): TermResult!
+    removeTranslation(termId: ID!, languageCode: String!): TermResult!
+}

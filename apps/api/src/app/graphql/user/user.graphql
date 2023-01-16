@@ -1,0 +1,28 @@
+type User {
+    id: ID!
+    createdAt: DateTime!
+    lastUpdatedAt: DateTime
+    name: String!
+    email: String!
+}
+
+type DeletedUser {
+    id: ID!
+    deletedAt: DateTime!
+}
+
+type UserNotFound {
+    message: String!
+}
+
+union UserResult = User | DeletedUser | UserNotFound
+
+extend type Query {
+    getMe: UserResult!
+    getUserById(userId: ID!): UserResult!
+}
+
+extend type Mutation {
+    createUser(name: String!, email: String!, password: String!): UserResult!
+    deleteUser(userId: ID!): UserResult!
+}

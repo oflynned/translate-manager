@@ -1,0 +1,9 @@
+scalar DateTime
+
+type Query {
+    getTime: DateTime!
+}
+
+type Mutation {
+    setTime(time: DateTime!): DateTime!
+}

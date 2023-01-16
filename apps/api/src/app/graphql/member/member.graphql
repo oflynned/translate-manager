@@ -1,0 +1,23 @@
+enum Role {
+    ADMIN
+    CONTRIBUTOR
+    VIEWER
+}
+
+type Member {
+    addedAt: DateTime!
+    role: Role!
+    user: UserResult
+}
+
+type InvitedMember {
+    invitedAt: DateTime!
+}
+
+union MemberResult = Member | InvitedMember
+
+extend type Mutation {
+    inviteMember(email: String!, organisationId: ID!): MemberResult!
+    addMember(userId: ID!, organisationId: ID!): MemberResult!
+    removeMember(userId: ID!, organisationId: ID!): MemberResult!
+}

@@ -1,0 +1,24 @@
+type Organisation {
+    id: ID!
+    createdAt: DateTime!
+    lastUpdatedAt: DateTime
+    deletedAt: DateTime
+    creator: MemberResult
+    members: [MemberResult!]
+}
+
+type DeletedOrganisation {
+    id: ID!
+    deletedAt: DateTime!
+}
+
+type OrganisationNotFound {
+    message: String!
+}
+
+union OrganisationResult = Organisation | DeletedOrganisation | OrganisationNotFound
+
+extend type Mutation  {
+    createOrganisation(name: String!): OrganisationResult!
+    deleteOrganisation(organisationId: ID!): OrganisationResult!
+}
