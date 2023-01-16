@@ -34,11 +34,28 @@
       }
     },
     "serve": {
-      "executor": "@nrwl/js:node",
+      "executor": "nx:run-commands",
       "options": {
-        "buildTarget": "api:build"
+        "buildTarget": "api:build",
+        "commands": [
+          "nx run graphql-types:generate-types",
+          "nx run api:start"
+        ],
+        "parallel": true
       },
       "configurations": {
+        "production": {
+          "buildTarget": "api:build:production"
+        }
+      }
+    },
+    "start": {
+      "executor": "@nrwl/js:node",
+      "defaultConfiguration": "development",
+      "configurations": {
+        "development": {
+          "buildTarget": "api:build:development"
+        },
         "production": {
           "buildTarget": "api:build:production"
         }
