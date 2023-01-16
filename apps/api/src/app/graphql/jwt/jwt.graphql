@@ -1,0 +1,32 @@
+type Jwt {
+    accessToken: String!
+    refreshToken: String
+}
+
+type MalformedJwt {
+    message: String!
+}
+
+type DeletedJwt {
+    deletedAt: DateTime!
+}
+
+type JwtNotFound {
+    message: String!
+}
+
+type RevokedJwt {
+    message: String!
+}
+
+type ExpiredJwt {
+    expiredAt: DateTime!
+}
+
+union JwtResult = Jwt | MalformedJwt | ExpiredJwt | JwtNotFound | RevokedJwt
+
+extend type Mutation {
+    createRefreshToken(email: String!, password: String!): JwtResult!
+    revokeRefreshToken: JwtResult!
+    refreshAccessToken: JwtResult!
+}
