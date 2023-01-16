@@ -6,4 +6,12 @@ export class UserEntity {
   email: string;
   hash: string;
   organisations: OrganisationEntity[];
+
+  constructor(name: string, email: string, hash: string) {
+    this.id = new Date().toISOString();
+    this.name = name;
+    this.email = email;
+    this.hash = hash;
+    this.organisations = [];
+  }
 }
