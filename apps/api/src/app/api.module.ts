@@ -8,6 +8,7 @@ import { AuthorisationModule } from "./domains/authorisation/authorisation.modul
 import { GraphQLModule } from "@nestjs/graphql";
 import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
 import { ApiConfigModule } from "./domains/api-config/api-config.module";
+import { UserGraphQLModule } from "./graphql/user/user.module";
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { ApiConfigModule } from "./domains/api-config/api-config.module";
     HashingModule,
     OrganisationModule,
     UserModule,
+    UserGraphQLModule,
   ],
 })
 export class ApiModule {}
