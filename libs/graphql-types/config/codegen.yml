@@ -1,0 +1,15 @@
+overwrite: true
+schema:
+  - '*/**/api/**/*.graphql'
+  - '!dist'
+generates:
+  libs/graphql-types/src/generated/types.ts:
+    plugins:
+      - 'typescript'
+  libs/graphql-types/src/generated/possible-types.json:
+    plugins:
+      - 'fragment-matcher'
+
+hooks:
+  afterAllFileWrite:
+    - prettier --write

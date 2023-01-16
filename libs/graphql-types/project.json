@@ -1,0 +1,46 @@
+{
+  "name": "graphql-types",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/graphql-types/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "libs/graphql-types/**/*.ts"
+        ]
+      }
+    },
+    "generate-types": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "graphql-codegen --watch --config libs/graphql-types/config/codegen.yml"
+          },
+          {
+            "command": "echo 'WATCHING FOR CHANGES'",
+            "color": "red",
+            "prefix": "CodeGen"
+          }
+        ],
+        "parallel": true
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
+      "options": {
+        "jestConfig": "libs/graphql-types/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,12 @@
+{
+  "possibleTypes": {
+    "MemberResult": ["InvitedMember", "Member"],
+    "OrganisationResult": [
+      "DeletedOrganisation",
+      "Organisation",
+      "OrganisationNotFound"
+    ],
+    "TermResult": ["Term", "TermNotFound"],
+    "UserResult": ["DeletedUser", "User", "UserNotFound"]
+  }
+}
