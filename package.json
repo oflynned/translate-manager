@@ -6,7 +6,7 @@
     "nx:api:serve": "nx run api:serve",
     "nx:dashboard:serve": "nx run dashboard:serve",
     "nx:app:be:new": "nx g @nrwl/nest:app",
-    "nx:app:fe:new": "nx g @nrwl/next:app",
+    "nx:app:fe:new": "nx g @nrwl/next:app"
   },
   "private": true,
   "devDependencies": {
