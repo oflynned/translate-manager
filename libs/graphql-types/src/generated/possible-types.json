@@ -1,5 +1,12 @@
 {
   "possibleTypes": {
+    "JwtResult": [
+      "ExpiredJwt",
+      "Jwt",
+      "JwtNotFound",
+      "MalformedJwt",
+      "RevokedJwt"
+    ],
     "MemberResult": ["InvitedMember", "Member"],
     "OrganisationResult": [
       "DeletedOrganisation",

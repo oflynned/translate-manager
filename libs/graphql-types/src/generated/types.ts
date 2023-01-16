@@ -19,6 +19,11 @@ export type Scalars = {
   DateTime: any;
 };
 
+export type DeletedJwt = {
+  __typename?: "DeletedJwt";
+  deletedAt: Scalars["DateTime"];
+};
+
 export type DeletedOrganisation = {
   __typename?: "DeletedOrganisation";
   deletedAt: Scalars["DateTime"];
@@ -31,6 +36,11 @@ export type DeletedUser = {
   id: Scalars["ID"];
 };
 
+export type ExpiredJwt = {
+  __typename?: "ExpiredJwt";
+  expiredAt: Scalars["DateTime"];
+};
+
 export enum Gender {
   Female = "FEMALE",
   Male = "MALE",
@@ -39,6 +49,30 @@ export enum Gender {
 export type InvitedMember = {
   __typename?: "InvitedMember";
   invitedAt: Scalars["DateTime"];
+  user?: Maybe<UserResult>;
+};
+
+export type Jwt = {
+  __typename?: "Jwt";
+  accessToken: Scalars["String"];
+  refreshToken?: Maybe<Scalars["String"]>;
+};
+
+export type JwtNotFound = {
+  __typename?: "JwtNotFound";
+  message: Scalars["String"];
+};
+
+export type JwtResult =
+  | ExpiredJwt
+  | Jwt
+  | JwtNotFound
+  | MalformedJwt
+  | RevokedJwt;
+
+export type MalformedJwt = {
+  __typename?: "MalformedJwt";
+  message: Scalars["String"];
 };
 
 export type Member = {
@@ -55,12 +89,15 @@ export type Mutation = {
   addMember: MemberResult;
   addTranslation: TermResult;
   createOrganisation: OrganisationResult;
+  createRefreshToken: JwtResult;
   createUser: UserResult;
   deleteOrganisation: OrganisationResult;
   deleteUser: UserResult;
   inviteMember: MemberResult;
+  refreshAccessToken: JwtResult;
   removeMember: MemberResult;
   removeTranslation: TermResult;
+  revokeRefreshToken: JwtResult;
   setTime: Scalars["DateTime"];
 };
 
@@ -77,6 +114,11 @@ export type MutationAddTranslationArgs = {
 
 export type MutationCreateOrganisationArgs = {
   name: Scalars["String"];
+};
+
+export type MutationCreateRefreshTokenArgs = {
+  email: Scalars["String"];
+  password: Scalars["String"];
 };
 
 export type MutationCreateUserArgs = {
@@ -147,6 +189,11 @@ export type QueryGetTermsByDomainArgs = {
 
 export type QueryGetUserByIdArgs = {
   userId: Scalars["ID"];
+};
+
+export type RevokedJwt = {
+  __typename?: "RevokedJwt";
+  message: Scalars["String"];
 };
 
 export enum Role {
