@@ -1,10 +1,10 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
-import { ApiConfigService } from "./api-config.service";
+import { ApiConfigService, IApiConfigService } from "./api-config.service";
 
 @Module({
   imports: [ConfigModule],
-  providers: [ApiConfigService],
-  exports: [ApiConfigService],
+  providers: [{ provide: IApiConfigService, useClass: ApiConfigService }],
+  exports: [IApiConfigService],
 })
 export class ApiConfigModule {}

@@ -15,7 +15,7 @@ export abstract class IHashingAlgorithm {
 
 @Injectable()
 export class BcryptAlgorithm implements IHashingAlgorithm {
-  private readonly SALT_ROUNDS = 16;
+  private readonly SALT_ROUNDS = 10;
 
   async compare(
     passwordAttempt: string,

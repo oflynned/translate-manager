@@ -1,18 +1,18 @@
 import { Injectable } from "@nestjs/common";
-import { UserEntity } from "../user/repo/user.entity";
+import { UserEntity } from "../../user/repo/user.entity";
 import { RefreshTokenEntity } from "./refresh-token.entity";
 import { Err, Ok, Result } from "ts-results";
 import { RefreshToken } from "./refresh-token";
 import { JwtService } from "@nestjs/jwt";
-import { IUserService } from "../user/service/user.service";
+import { IUserService } from "../../user/service/user.service";
 import { IRefreshTokenRepo } from "./refresh-token.repo";
-import { MissingRefreshTokenException } from "./exception/missing-refresh-token.exception";
-import { RevokedRefreshTokenException } from "./exception/revoked-refresh-token.exception";
-import { InvalidRefreshTokenException } from "./exception/invalid-refresh-token.exception";
-import { ExpiredRefreshTokenException } from "./exception/expired-refresh-token.exception";
-import { MalformedRefreshTokenException } from "./exception/malformed-refresh-token.exception";
+import { MissingRefreshTokenException } from "../exceptions/missing-refresh-token.exception";
+import { RevokedRefreshTokenException } from "../exceptions/revoked-refresh-token.exception";
+import { InvalidRefreshTokenException } from "../exceptions/invalid-refresh-token.exception";
+import { ExpiredRefreshTokenException } from "../exceptions/expired-refresh-token.exception";
+import { MalformedRefreshTokenException } from "../exceptions/malformed-refresh-token.exception";
 import { SignOptions } from "jsonwebtoken";
-import { IApiConfigService } from "../api-config/api-config.service";
+import { IApiConfigService } from "../../api-config/api-config.service";
 
 export type LongLivedToken = {
   user: UserEntity;
@@ -70,11 +70,14 @@ export class RefreshTokenService implements IRefreshTokenService {
       REFRESH_TOKEN_TTL
     );
 
-    const serviceName = this.configService.getServiceName();
+    const serviceName = this.configService.getTokenIssuer();
 
     if (serviceName.err) {
       return Err(new MalformedRefreshTokenException());
     }
+
+    console.log({ user });
+    console.log({ token });
 
     const options: SignOptions = {
       issuer: serviceName.val,

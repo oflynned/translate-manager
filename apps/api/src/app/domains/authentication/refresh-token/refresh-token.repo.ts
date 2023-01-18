@@ -1,7 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { RefreshTokenEntity } from "./refresh-token.entity";
-import { UserEntity } from "../user/repo/user.entity";
-import { Result } from "ts-results";
+import { UserEntity } from "../../user/repo/user.entity";
 
 export abstract class IRefreshTokenRepo {
   abstract createRefreshToken(
@@ -34,6 +33,8 @@ export class RefreshTokenRepo implements IRefreshTokenRepo {
     user: UserEntity,
     ttl: number
   ): Promise<RefreshTokenEntity> {
-    return new RefreshTokenEntity();
+    const expiresAt = new Date(Date.now() + ttl);
+
+    return new RefreshTokenEntity(user, expiresAt);
   }
 }

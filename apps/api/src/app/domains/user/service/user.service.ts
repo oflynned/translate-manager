@@ -32,6 +32,12 @@ export class UserService implements IUserService {
   async createUser(
     dto: CreateUserDto
   ): Promise<Result<UserEntity, InvalidPasswordException>> {
+    const existingUser = await this.repo.getByEmail(dto.email);
+
+    if (existingUser) {
+      return Ok(existingUser);
+    }
+
     const result = await this.hashingService.toHash(dto.password);
 
     if (result.err) {
