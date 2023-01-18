@@ -15,7 +15,11 @@ type UserNotFound {
     message: String!
 }
 
-union UserResult = User | DeletedUser | UserNotFound
+type InvalidUser {
+    message: String!
+}
+
+union UserResult = User | DeletedUser | UserNotFound | InvalidUser
 
 extend type Query {
     getMe: UserResult!

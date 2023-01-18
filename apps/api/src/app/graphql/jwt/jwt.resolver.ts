@@ -1,11 +1,11 @@
 import { Injectable, UseGuards } from "@nestjs/common";
 import { Args, Mutation, Resolver } from "@nestjs/graphql";
-import { IAccessTokenService } from "../../domains/access-token/access-token.service";
+import { IAccessTokenService } from "../../domains/authentication/access-token/access-token.service";
 import { JwtResult } from "@translate-manager/graphql-types";
-import { IRefreshTokenService } from "../../domains/access-token/refresh-token.service";
+import { IRefreshTokenService } from "../../domains/authentication/refresh-token/refresh-token.service";
 import { IAuthenticationService } from "../../domains/authentication/authentication.service";
 import { UserNotFoundException } from "../../domains/user/service/exceptions/user-not-found.exception";
-import { RefreshTokenEntity } from "../../domains/access-token/refresh-token.entity";
+import { RefreshTokenEntity } from "../../domains/authentication/refresh-token/refresh-token.entity";
 import { RefreshTokenGuard } from "../../core/guards/refresh-token.guard";
 import { RefreshToken } from "../../core/decorators/refresh-token.decorator";
 
@@ -28,14 +28,21 @@ export class JwtResolver {
       passwordAttempt: password,
     });
 
+    console.log({ userResult });
+
     if (userResult.err) {
-      throw new UserNotFoundException();
+      throw new UserNotFoundException(`User with email ${email} was not found`);
     }
 
-    const [refreshTokenResult, accessTokenResult] = await Promise.all([
-      this.refreshTokenService.createRefreshToken(userResult.val),
-      this.accessTokenService.createAccessToken(userResult.val),
-    ]);
+    const refreshTokenResult =
+      await this.refreshTokenService.createRefreshToken(userResult.val);
+
+    const accessTokenResult = await this.accessTokenService.createAccessToken(
+      userResult.val
+    );
+
+    console.log({ refreshTokenResult });
+    console.log({ accessTokenResult });
 
     if (refreshTokenResult.err || accessTokenResult.err) {
       return {
