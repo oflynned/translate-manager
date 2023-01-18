@@ -1,5 +1,5 @@
 import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
-import { IRefreshTokenService } from "../../domains/access-token/refresh-token.service";
+import { IRefreshTokenService } from "../../domains/authentication/refresh-token/refresh-token.service";
 import { GqlExecutionContext } from "@nestjs/graphql";
 import { RequestContext } from "./request-context";
 
