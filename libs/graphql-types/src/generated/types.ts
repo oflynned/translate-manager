@@ -46,6 +46,11 @@ export enum Gender {
   Male = "MALE",
 }
 
+export type InvalidUser = {
+  __typename?: "InvalidUser";
+  message: Scalars["String"];
+};
+
 export type InvitedMember = {
   __typename?: "InvitedMember";
   invitedAt: Scalars["DateTime"];
@@ -240,4 +245,4 @@ export type UserNotFound = {
   message: Scalars["String"];
 };
 
-export type UserResult = DeletedUser | User | UserNotFound;
+export type UserResult = DeletedUser | InvalidUser | User | UserNotFound;
