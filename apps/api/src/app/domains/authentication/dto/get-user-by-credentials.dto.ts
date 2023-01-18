@@ -1,4 +1,4 @@
-export interface IsMatchingPasswordDto {
+export interface GetUserByCredentialsDto {
   email: string;
   passwordAttempt: string;
 }

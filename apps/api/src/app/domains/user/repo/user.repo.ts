@@ -13,18 +13,28 @@ export abstract class IUserRepo {
 
 @Injectable()
 export class UserRepo implements IUserRepo {
+  private readonly users: UserEntity[] = [];
+
   async create(
     name: string,
     email: string,
     hash: string
   ): Promise<UserEntity | null> {
-    return null;
+    const user = new UserEntity(name, email, hash);
+
+    this.users.push(user);
+
+    return user;
   }
   async getByEmail(email: string): Promise<UserEntity | null> {
-    return null;
+    const result = this.users.find((user) => user.email === email);
+
+    return result ?? null;
   }
 
   async getById(id: string): Promise<UserEntity | null> {
-    return null;
+    const result = this.users.find((user) => user.id === id);
+
+    return result ?? null;
   }
 }

@@ -2,7 +2,7 @@ import { mock } from "jest-mock-extended";
 import { IUserService } from "../user/service/user.service";
 import { IHashingService } from "../hashing/hashing.service";
 import { AuthenticationService } from "./authentication.service";
-import { IsMatchingPasswordDto } from "./dto/is-matching-password.dto";
+import { GetUserByCredentialsDto } from "./dto/get-user-by-credentials.dto";
 import { Err, Ok } from "ts-results";
 import { getFakeUser } from "../user/repo/user.factory";
 
@@ -13,7 +13,7 @@ const authenticationService = new AuthenticationService(
   hashingService
 );
 
-const dto: IsMatchingPasswordDto = {
+const dto: GetUserByCredentialsDto = {
   email: "email",
   passwordAttempt: "password",
 };

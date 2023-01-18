@@ -9,6 +9,7 @@ export const getFakeUser = (
 
   return {
     id: faker.datatype.uuid(),
+    createdAt: new Date(),
     email: faker.internet.email(forename, surname),
     hash: faker.datatype.uuid(),
     name: `${forename} ${surname}`,
