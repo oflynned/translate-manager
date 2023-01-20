@@ -22,30 +22,31 @@ const user = getFakeUser();
 
 describe("Authentication service", () => {
   describe("isMatchingPassword", () => {
-    it("should return false on an error from the user service", async () => {
+    it("should return error result when user does not exist", async () => {
       userService.getUserByEmail.mockResolvedValue(Err(new Error()));
 
-      await expect(
-        authenticationService.isMatchingPassword(dto)
-      ).resolves.toEqual(false);
+      const result = await authenticationService.getUserByCredentials(dto);
+
+      expect(result.err).toBeTruthy();
     });
 
-    it("should return false on user hash not matching password attempt", async () => {
+    it("should return error on user hash not matching password attempt", async () => {
       userService.getUserByEmail.mockResolvedValue(Ok(user));
       hashingService.isValid.mockResolvedValue(false);
 
-      await expect(
-        authenticationService.isMatchingPassword(dto)
-      ).resolves.toEqual(false);
+      const result = await authenticationService.getUserByCredentials(dto);
+
+      expect(result.err).toBeTruthy();
     });
 
-    it("should return true on user hash matching password attempt", async () => {
+    it("should return ok result on user hash matching password attempt", async () => {
       userService.getUserByEmail.mockResolvedValue(Ok(user));
       hashingService.isValid.mockResolvedValue(true);
 
-      await expect(
-        authenticationService.isMatchingPassword(dto)
-      ).resolves.toEqual(true);
+      const result = await authenticationService.getUserByCredentials(dto);
+
+      expect(result.ok).toBeTruthy();
+      expect(result.val).toBe(user);
     });
   });
 });
