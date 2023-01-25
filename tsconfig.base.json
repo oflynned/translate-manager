@@ -19,6 +19,12 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@translate-dashboard/dto": [
+        "libs/dto/src/index.ts"
+      ],
+      "@translate-dashboard/schema-validator": [
+        "libs/schema-validator/src/index.ts"
+      ],
       "@translate-manager/graphql-types": [
         "libs/graphql-types/src/index.ts"
       ]
