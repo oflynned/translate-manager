@@ -7,16 +7,17 @@ import { Logger } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 
 import { ApiModule } from "./app/api.module";
+import { IApiConfigService } from "./app/domains/api-config/api-config.service";
 
 async function bootstrap() {
   const app = await NestFactory.create(ApiModule);
-  const globalPrefix = "api";
-  app.setGlobalPrefix(globalPrefix);
-  const port = process.env.PORT || 3333;
+  const config = app.get(IApiConfigService);
+  const portResult = config.getPort();
+  const port = portResult.err ? 3000 : portResult.val;
+
   await app.listen(port);
-  Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
-  );
+
+  Logger.log(`🚀 Application is running on: http://localhost:${port}`);
 }
 
 bootstrap();
