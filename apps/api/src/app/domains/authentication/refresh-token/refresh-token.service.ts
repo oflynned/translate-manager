@@ -76,9 +76,6 @@ export class RefreshTokenService implements IRefreshTokenService {
       return Err(new MalformedRefreshTokenException());
     }
 
-    console.log({ user });
-    console.log({ token });
-
     const options: SignOptions = {
       issuer: serviceName.val,
       audience: serviceName.val,

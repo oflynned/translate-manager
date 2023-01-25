@@ -16,6 +16,8 @@ export abstract class IRefreshTokenRepo {
 
 @Injectable()
 export class RefreshTokenRepo implements IRefreshTokenRepo {
+  private readonly refreshTokens: RefreshTokenEntity[] = [];
+
   async revokeToken(
     refreshToken: RefreshTokenEntity
   ): Promise<RefreshTokenEntity> {
@@ -26,7 +28,9 @@ export class RefreshTokenRepo implements IRefreshTokenRepo {
   }
 
   async getRefreshTokenById(id: string): Promise<RefreshTokenEntity | null> {
-    return null;
+    const token = this.refreshTokens.find((token) => token.id === id);
+
+    return token ?? null;
   }
 
   async createRefreshToken(
@@ -34,7 +38,10 @@ export class RefreshTokenRepo implements IRefreshTokenRepo {
     ttl: number
   ): Promise<RefreshTokenEntity> {
     const expiresAt = new Date(Date.now() + ttl);
+    const refreshToken = new RefreshTokenEntity(user, expiresAt);
 
-    return new RefreshTokenEntity(user, expiresAt);
+    this.refreshTokens.push(refreshToken);
+
+    return refreshToken;
   }
 }

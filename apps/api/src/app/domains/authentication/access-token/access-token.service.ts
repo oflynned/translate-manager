@@ -72,13 +72,13 @@ export class AccessTokenService implements IAccessTokenService {
   ): Promise<
     Result<UserEntity, InvalidAccessTokenException | UserNotFoundException>
   > {
-    const result = await this.jwtService.decode(encodedToken);
+    const token = await this.jwtService.decode(encodedToken);
 
-    if (!result) {
+    if (!token) {
       return Err(new InvalidAccessTokenException());
     }
 
-    return this.userService.getUserById({ id: result.sub });
+    return this.userService.getUserById({ id: token.sub });
   }
 
   async createAccessTokenFromRefreshToken(

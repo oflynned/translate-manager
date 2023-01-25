@@ -2,9 +2,11 @@ import { Module } from "@nestjs/common";
 import { OrganisationResolver } from "./organisation.resolver";
 import { CreateOrganisationSchema } from "./schema/create-organisation.schema";
 import { OrganisationMapper } from "./organisation.mapper";
+import { OrganisationModule } from "../../domains/organisation/organisation.module";
+import { AuthenticationModule } from "../../domains/authentication/authentication.module";
 
 @Module({
-  imports: [],
+  imports: [OrganisationModule, AuthenticationModule],
   providers: [
     OrganisationResolver,
     CreateOrganisationSchema,
@@ -12,4 +14,4 @@ import { OrganisationMapper } from "./organisation.mapper";
   ],
   exports: [OrganisationResolver],
 })
-export class OrganisationModule {}
+export class OrganisationGraphqlModule {}
