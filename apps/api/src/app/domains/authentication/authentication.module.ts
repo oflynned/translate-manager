@@ -38,7 +38,7 @@ import { IApiConfigService } from "../api-config/api-config.service";
         return {
           secret: secret.val,
           signOptions: {
-            expiresIn: "5m",
+            expiresIn: "1h",
           },
         };
       },
