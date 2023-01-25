@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { IUserService } from "../user/service/user.service";
 import { IHashingService } from "../hashing/hashing.service";
-import { GetUserByCredentialsDto } from "./dto/get-user-by-credentials.dto";
+import { GetUserByCredentialsDto } from "@translate-dashboard/dto";
 import { Err, Ok, Result } from "ts-results";
 import { WrongPasswordException } from "./exceptions/wrong-password.exception";
 import { UserEntity } from "../user/repo/user.entity";
@@ -27,21 +27,21 @@ export class AuthenticationService implements IAuthenticationService {
   ): Promise<
     Result<UserEntity, UserNotFoundException | WrongPasswordException>
   > {
-    const result = await this.userService.getUserByEmail({ email: dto.email });
+    const user = await this.userService.getUserByEmail({ email: dto.email });
 
-    if (result.err) {
+    if (user.err) {
       return Err(new UserNotFoundException());
     }
 
     const isValid = await this.hashingService.isValid(
       dto.passwordAttempt,
-      result.val.hash
+      user.val.hash
     );
 
     if (!isValid) {
       return Err(new WrongPasswordException());
     }
 
-    return Ok(result.val);
+    return Ok(user.val);
   }
 }
