@@ -93,6 +93,7 @@ export type Mutation = {
   __typename?: "Mutation";
   addMember: MemberResult;
   addTranslation: TermResult;
+  confirmEmail: UserResult;
   createOrganisation: OrganisationResult;
   createRefreshToken: JwtResult;
   createUser: UserResult;
@@ -115,6 +116,11 @@ export type MutationAddTranslationArgs = {
   languageCode: Scalars["String"];
   termId: Scalars["ID"];
   translation: Scalars["String"];
+};
+
+export type MutationConfirmEmailArgs = {
+  email: Scalars["String"];
+  pin: Scalars["String"];
 };
 
 export type MutationCreateOrganisationArgs = {

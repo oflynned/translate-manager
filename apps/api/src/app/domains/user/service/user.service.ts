@@ -38,15 +38,13 @@ export class UserService implements IUserService {
       return Ok(existingUser);
     }
 
-    const result = await this.hashingService.toHash(dto.password);
+    const hash = await this.hashingService.toHash(dto.password);
 
-    if (result.err) {
+    if (hash.err) {
       return Err(new InvalidUserException());
     }
 
-    const hash = result.val;
-
-    const user = await this.repo.create(dto.name, dto.email, hash);
+    const user = await this.repo.create(dto.name, dto.email, hash.val);
 
     if (!user) {
       return Err(new InvalidUserException());

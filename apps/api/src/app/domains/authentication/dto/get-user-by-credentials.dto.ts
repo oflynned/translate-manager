@@ -1,4 +1,4 @@
-export interface GetUserByCredentialsDto {
+export type GetUserByCredentialsDto = {
   email: string;
   passwordAttempt: string;
-}
+};

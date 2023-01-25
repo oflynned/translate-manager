@@ -8,6 +8,7 @@ export abstract class IApiConfigService {
   abstract getRedisUrl(): Result<string, MissingConfigItemException>;
   abstract getTokenIssuer(): Result<string, MissingConfigItemException>;
   abstract getJwtSecret(): Result<string, MissingConfigItemException>;
+  abstract getPort(): Result<number, MissingConfigItemException>;
 }
 
 @Injectable()
@@ -38,5 +39,9 @@ export class ApiConfigService implements IApiConfigService {
 
   getJwtSecret(): Result<string, MissingConfigItemException> {
     return this.getValue<string>("JWT_SECRET");
+  }
+
+  getPort(): Result<number, MissingConfigItemException> {
+    return this.getValue<number>("PORT");
   }
 }
