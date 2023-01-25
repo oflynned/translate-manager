@@ -28,8 +28,6 @@ export class JwtResolver {
       passwordAttempt: password,
     });
 
-    console.log({ userResult });
-
     if (userResult.err) {
       throw new UserNotFoundException(`User with email ${email} was not found`);
     }
@@ -40,9 +38,6 @@ export class JwtResolver {
     const accessTokenResult = await this.accessTokenService.createAccessToken(
       userResult.val
     );
-
-    console.log({ refreshTokenResult });
-    console.log({ accessTokenResult });
 
     if (refreshTokenResult.err || accessTokenResult.err) {
       return {
