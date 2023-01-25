@@ -18,7 +18,11 @@ type OrganisationNotFound {
 
 union OrganisationResult = Organisation | DeletedOrganisation | OrganisationNotFound
 
-extend type Mutation  {
+extend type Mutation {
     createOrganisation(name: String!): OrganisationResult!
     deleteOrganisation(organisationId: ID!): OrganisationResult!
+}
+
+extend type Query {
+    getOrganisationById(organisationId: ID!): OrganisationResult!
 }

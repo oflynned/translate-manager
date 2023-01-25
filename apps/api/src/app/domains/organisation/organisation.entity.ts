@@ -2,6 +2,9 @@ import { UserEntity } from "../user/repo/user.entity";
 
 export class OrganisationEntity {
   id: string;
+  createdAt: Date;
+  lastUpdatedAt: Date;
+  deletedAt: Date;
   name: string;
   members: UserEntity[];
 

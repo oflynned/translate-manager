@@ -1,10 +1,12 @@
 import { Injectable } from "@nestjs/common";
 import { UserEntity } from "../repo/user.entity";
 import { IUserRepo } from "../repo/user.repo";
-import { GetUserByEmailDto } from "./dto/get-user-by-email.dto";
-import { CreateUserDto } from "./dto/create-user.dto";
+import {
+  GetUserByEmailDto,
+  CreateUserDto,
+  GetUserByIdDto,
+} from "@translate-dashboard/dto";
 import { IHashingService } from "../../hashing/hashing.service";
-import { GetUserByIdDto } from "./dto/get-user-by-id.dto";
 import { UserNotFoundException } from "./exceptions/user-not-found.exception";
 import { Err, Ok, Result } from "ts-results";
 import { InvalidUserException } from "./exceptions/invalid-user.exception";

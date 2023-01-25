@@ -9,7 +9,14 @@ export class AccessTokenGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const ctx = GqlExecutionContext.create(context).getContext();
-    const encodedToken = ctx.req.headers["authorization"] as string;
+    const header = ctx.req.headers["authorization"] as string | undefined;
+
+    if (!header) {
+      return false;
+    }
+
+    const [, encodedToken] = header.split(" ");
+
     const validityResult = await this.accessTokenService.isAccessTokenValid(
       encodedToken
     );

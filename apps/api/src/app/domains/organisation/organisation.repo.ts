@@ -8,9 +8,15 @@ export abstract class IOrganisationRepo {
     creator: UserEntity
   ): Promise<OrganisationEntity>;
   abstract getById(id: string): Promise<OrganisationEntity | null>;
-  abstract addMember(memberId: string): Promise<UserEntity[]>;
-  abstract removeMember(memberId: string): Promise<UserEntity[]>;
-  // TODO policies?
+  abstract addMember(
+    newMemberId: string,
+    user: UserEntity
+  ): Promise<UserEntity[]>;
+  abstract removeMember(
+    unwantedMemberId: string,
+    user: UserEntity
+  ): Promise<UserEntity[]>;
+  abstract deleteOrganisation(id: string): Promise<OrganisationEntity | null>;
 }
 
 @Injectable()
@@ -23,11 +29,21 @@ export class OrganisationRepo implements IOrganisationRepo {
     return new OrganisationEntity(name, creator);
   }
 
-  async addMember(memberId: string): Promise<UserEntity[]> {
+  async addMember(
+    newMemberId: string,
+    user: UserEntity
+  ): Promise<UserEntity[]> {
     return [];
   }
 
-  async removeMember(memberId: string): Promise<UserEntity[]> {
+  async removeMember(
+    unwantedMemberId: string,
+    user: UserEntity
+  ): Promise<UserEntity[]> {
     return [];
+  }
+
+  async deleteOrganisation(id: string): Promise<OrganisationEntity | null> {
+    return null;
   }
 }
