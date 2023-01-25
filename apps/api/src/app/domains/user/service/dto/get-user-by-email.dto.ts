@@ -1,3 +1,3 @@
-export class GetUserByEmailDto {
+export type GetUserByEmailDto = {
   email: string;
-}
+};

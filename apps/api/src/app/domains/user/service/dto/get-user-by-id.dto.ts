@@ -1,3 +1,3 @@
-export class GetUserByIdDto {
+export type GetUserByIdDto = {
   id: string;
-}
+};
