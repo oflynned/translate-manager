@@ -19,7 +19,7 @@ export class ApiConfigService implements IApiConfigService {
     const value = this.config.get<T>(key);
 
     if (!value) {
-      return Err(new MissingConfigItemException());
+      return Err(new MissingConfigItemException(`Missing env var: ${key}`));
     }
 
     return Ok(value);
