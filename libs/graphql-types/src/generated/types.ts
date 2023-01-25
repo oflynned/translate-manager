@@ -188,10 +188,15 @@ export type OrganisationResult =
 export type Query = {
   __typename?: "Query";
   getMe: UserResult;
+  getOrganisationById: OrganisationResult;
   getTermsByDomain?: Maybe<Array<TermResult>>;
   getTime: Scalars["DateTime"];
   getUntranslatedTerms?: Maybe<Array<TermResult>>;
   getUserById: UserResult;
+};
+
+export type QueryGetOrganisationByIdArgs = {
+  organisationId: Scalars["ID"];
 };
 
 export type QueryGetTermsByDomainArgs = {
