@@ -1,3 +1,3 @@
-export class GetOrganisationByIdDto {
+export type GetOrganisationByIdDto = {
   id: string;
-}
+};
