@@ -28,5 +28,6 @@ extend type Query {
 
 extend type Mutation {
     createUser(name: String!, email: String!, password: String!): UserResult!
+    confirmEmail(email:String!, pin: String!): UserResult!
     deleteUser(userId: ID!): UserResult!
 }
