@@ -209,7 +209,7 @@ export type QueryGetUserByIdArgs = {
 
 export type RevokedJwt = {
   __typename?: "RevokedJwt";
-  message: Scalars["String"];
+  revokedAt: Scalars["DateTime"];
 };
 
 export enum Role {
