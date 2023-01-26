@@ -141,6 +141,8 @@ export class RefreshTokenService implements IRefreshTokenService {
       encodedToken
     )) as RefreshToken;
 
+    // TODO can the service return null? account for this case and align types?
+
     if (!payload.jti) {
       return Err(new InvalidRefreshTokenException());
     }
