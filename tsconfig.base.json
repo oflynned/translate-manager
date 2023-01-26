@@ -22,8 +22,17 @@
       "@translate-dashboard/dto": [
         "libs/dto/src/index.ts"
       ],
+      "@translate-dashboard/entities": [
+        "libs/entities/src/index.ts"
+      ],
+      "@translate-dashboard/exceptions": [
+        "libs/exceptions/src/index.ts"
+      ],
       "@translate-dashboard/schema-validator": [
         "libs/schema-validator/src/index.ts"
+      ],
+      "@translate-dashboard/service-definitions": [
+        "libs/service-definitions/src/index.ts"
       ],
       "@translate-manager/graphql-types": [
         "libs/graphql-types/src/index.ts"
