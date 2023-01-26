@@ -29,7 +29,10 @@ export class JwtResolver {
     });
 
     if (userResult.err) {
-      throw new UserNotFoundException(`User with email ${email} was not found`);
+      return {
+        __typename: "JwtNotFound",
+        message: `User for jwt was not found`,
+      };
     }
 
     const refreshTokenResult =
@@ -55,20 +58,13 @@ export class JwtResolver {
 
   @Mutation("revokeRefreshToken")
   async revokeRefreshToken(
-    @RefreshToken() refreshToken: RefreshTokenEntity
+    @RefreshToken() token: RefreshTokenEntity
   ): Promise<JwtResult> {
-    if (refreshToken.expiresAt < new Date()) {
-      return {
-        __typename: "ExpiredJwt",
-        expiredAt: refreshToken.expiresAt,
-      };
-    }
-
-    const result = await this.refreshTokenService.revokeToken(refreshToken);
+    const revokedToken = await this.refreshTokenService.revokeToken(token);
 
     return {
       __typename: "RevokedJwt",
-      message: `Refresh token was revoked at ${result.val.revokedAt.toISOString()}`,
+      revokedAt: revokedToken.val.revokedAt,
     };
   }
 
@@ -77,21 +73,21 @@ export class JwtResolver {
   async refreshAccessToken(
     @RefreshToken() refreshToken: RefreshTokenEntity
   ): Promise<JwtResult> {
-    const result =
+    const accessToken =
       await this.accessTokenService.createAccessTokenFromRefreshToken(
         refreshToken
       );
 
-    if (result.err) {
+    if (accessToken.err) {
       return {
         __typename: "MalformedJwt",
-        message: result.val.message,
+        message: accessToken.val.message,
       };
     }
 
     return {
       __typename: "Jwt",
-      accessToken: result.val,
+      accessToken: accessToken.val,
     };
   }
 }

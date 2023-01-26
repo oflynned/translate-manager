@@ -16,7 +16,7 @@ type JwtNotFound {
 }
 
 type RevokedJwt {
-    message: String!
+    revokedAt: DateTime!
 }
 
 type ExpiredJwt {
