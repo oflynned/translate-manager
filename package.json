@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "nx:api:serve": "nx run api:serve",
-    "nx:dashboard:serve": "nx run dashboard:serve",
     "nx:app:be:new": "nx g @nrwl/nest:app",
     "nx:app:fe:new": "nx g @nrwl/next:app",
-    "nx:types:generate": "nx run graphql-types:generate-types"
+    "start:api": "nx run api:serve",
+    "start:dashboard": "nx run dashboard:serve",
+    "types:generate": "nx run graphql-types:generate-types"
   },
   "private": true,
   "devDependencies": {
