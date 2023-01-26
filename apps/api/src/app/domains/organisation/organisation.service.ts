@@ -1,30 +1,18 @@
 import { Injectable } from "@nestjs/common";
-import { OrganisationEntity } from "./organisation.entity";
+import { OrganisationEntity } from "@translate-dashboard/entities";
 import { IOrganisationRepo } from "./organisation.repo";
 import {
   CreateOrganisationDto,
   DeleteOrganisationDto,
   GetOrganisationByIdDto,
 } from "@translate-dashboard/dto";
-import { UserEntity } from "../user/repo/user.entity";
+import { UserEntity } from "@translate-dashboard/entities";
 import { Err, Ok, Result } from "ts-results";
-import { OrganisationNotFoundException } from "../../graphql/organisation/exception/organisation-not-found.exception";
-import { InvalidOrganisationException } from "../../graphql/organisation/exception/invalid-organisation.exception";
-
-export abstract class IOrganisationService {
-  abstract createOrganisation(
-    dto: CreateOrganisationDto,
-    creator: UserEntity
-  ): Promise<Result<OrganisationEntity, InvalidOrganisationException>>;
-
-  abstract getOrganisationById(
-    dto: GetOrganisationByIdDto
-  ): Promise<Result<OrganisationEntity, OrganisationNotFoundException>>;
-
-  abstract deleteOrganisation(
-    dto: DeleteOrganisationDto
-  ): Promise<Result<OrganisationEntity, OrganisationNotFoundException>>;
-}
+import {
+  OrganisationNotFoundException,
+  InvalidOrganisationException,
+} from "@translate-dashboard/exceptions";
+import { IOrganisationService } from "@translate-dashboard/service-definitions";
 
 @Injectable()
 export class OrganisationService implements IOrganisationService {
@@ -56,9 +44,10 @@ export class OrganisationService implements IOrganisationService {
   }
 
   async deleteOrganisation(
-    dto: DeleteOrganisationDto
+    dto: DeleteOrganisationDto,
+    user: UserEntity
   ): Promise<Result<OrganisationEntity, OrganisationNotFoundException>> {
-    const organisation = await this.repo.deleteOrganisation(dto.id);
+    const organisation = await this.repo.deleteOrganisation(dto.id, user);
 
     if (!organisation) {
       return Err(new OrganisationNotFoundException());

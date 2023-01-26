@@ -1,12 +1,12 @@
 import { Injectable, UseGuards } from "@nestjs/common";
-import { IUserService } from "../../domains/user/service/user.service";
 import { Resolver, Query, Args, Mutation } from "@nestjs/graphql";
-import { UserEntity } from "../../domains/user/repo/user.entity";
+import { UserEntity } from "@translate-dashboard/entities";
 import { UserResult } from "@translate-manager/graphql-types";
 import { CurrentUser } from "../../core/decorators/current-user.decorator";
 import { AccessTokenGuard } from "../../core/guards/access-token.guard";
 import { UserMapper } from "./user.mapper";
 import { CreateUserSchema } from "./schemas/create-user.schema";
+import { IUserService } from "@translate-dashboard/service-definitions";
 
 @Resolver()
 @Injectable()

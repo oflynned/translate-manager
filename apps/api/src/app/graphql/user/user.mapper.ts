@@ -2,8 +2,8 @@ import {
   GraphqlResultMapper,
   UserResult,
 } from "@translate-manager/graphql-types";
-import { UserEntity } from "../../domains/user/repo/user.entity";
-import { InvalidUserException } from "../../domains/user/service/exceptions/invalid-user.exception";
+import { UserEntity } from "../../../../../../libs/entities/src/lib/entities/user.entity";
+import { InvalidUserException } from "../../../../../../libs/exceptions/src/lib/user/invalid-user.exception";
 import { Injectable } from "@nestjs/common";
 import { InvalidDtoException } from "../../../../../../libs/schema-validator/src/lib/invalid-dto.exception";
 

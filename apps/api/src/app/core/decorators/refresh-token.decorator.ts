@@ -5,7 +5,7 @@ import {
 } from "@nestjs/common";
 import { GqlExecutionContext } from "@nestjs/graphql";
 import { RequestContext } from "../guards/request-context";
-import { RefreshTokenEntity } from "../../domains/authentication/refresh-token/refresh-token.entity";
+import { RefreshTokenEntity } from "@translate-dashboard/entities";
 
 export const RefreshToken = createParamDecorator(
   (data: unknown, req: ExecutionContext) => {

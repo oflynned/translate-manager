@@ -1,15 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { Err, Ok, Result } from "ts-results";
-import { MissingConfigItemException } from "./missing-config-item.exception";
-
-export abstract class IApiConfigService {
-  abstract getDatabaseUrl(): Result<string, MissingConfigItemException>;
-  abstract getRedisUrl(): Result<string, MissingConfigItemException>;
-  abstract getTokenIssuer(): Result<string, MissingConfigItemException>;
-  abstract getJwtSecret(): Result<string, MissingConfigItemException>;
-  abstract getPort(): Result<number, MissingConfigItemException>;
-}
+import { MissingConfigItemException } from "@translate-dashboard/exceptions";
+import { IApiConfigService } from "@translate-dashboard/service-definitions";
 
 @Injectable()
 export class ApiConfigService implements IApiConfigService {

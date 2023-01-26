@@ -7,7 +7,7 @@ import { Logger } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 
 import { ApiModule } from "./app/api.module";
-import { IApiConfigService } from "./app/domains/api-config/api-config.service";
+import { IApiConfigService } from "@translate-dashboard/service-definitions";
 
 async function bootstrap() {
   const app = await NestFactory.create(ApiModule);

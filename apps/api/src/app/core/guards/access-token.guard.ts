@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
 import { GqlExecutionContext } from "@nestjs/graphql";
-import { IAccessTokenService } from "../../domains/authentication/access-token/access-token.service";
 import { RequestContext } from "./request-context";
+import { IAccessTokenService } from "@translate-dashboard/service-definitions";
 
 @Injectable()
 export class AccessTokenGuard implements CanActivate {

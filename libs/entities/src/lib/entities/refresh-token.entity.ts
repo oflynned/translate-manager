@@ -1,4 +1,4 @@
-import { UserEntity } from "../../user/repo/user.entity";
+import { UserEntity } from "./user.entity";
 
 export class RefreshTokenEntity {
   id: string;

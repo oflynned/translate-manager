@@ -1,55 +1,27 @@
 import { Injectable } from "@nestjs/common";
-import { UserEntity } from "../../user/repo/user.entity";
-import { RefreshTokenEntity } from "./refresh-token.entity";
+import { UserEntity, RefreshTokenEntity } from "@translate-dashboard/entities";
 import { Err, Ok, Result } from "ts-results";
 import { RefreshToken } from "./refresh-token";
 import { JwtService } from "@nestjs/jwt";
-import { IUserService } from "../../user/service/user.service";
 import { IRefreshTokenRepo } from "./refresh-token.repo";
-import { MissingRefreshTokenException } from "../exceptions/missing-refresh-token.exception";
-import { RevokedRefreshTokenException } from "../exceptions/revoked-refresh-token.exception";
-import { InvalidRefreshTokenException } from "../exceptions/invalid-refresh-token.exception";
-import { ExpiredRefreshTokenException } from "../exceptions/expired-refresh-token.exception";
-import { MalformedRefreshTokenException } from "../exceptions/malformed-refresh-token.exception";
+import {
+  MissingRefreshTokenException,
+  RevokedRefreshTokenException,
+  InvalidRefreshTokenException,
+  ExpiredRefreshTokenException,
+  MalformedRefreshTokenException,
+} from "@translate-dashboard/exceptions";
 import { SignOptions } from "jsonwebtoken";
-import { IApiConfigService } from "../../api-config/api-config.service";
+import {
+  IApiConfigService,
+  IRefreshTokenService,
+  IUserService,
+} from "@translate-dashboard/service-definitions";
 
 export type LongLivedToken = {
   user: UserEntity;
   refreshToken: RefreshTokenEntity;
 };
-
-export abstract class IRefreshTokenService {
-  abstract isRefreshTokenValid(
-    encodedToken: string
-  ): Promise<Result<boolean, never>>;
-  abstract createRefreshToken(
-    user: UserEntity
-  ): Promise<Result<string, MalformedRefreshTokenException>>;
-  abstract resolveRefreshToken(
-    encodedToken: string
-  ): Promise<
-    Result<
-      LongLivedToken,
-      | InvalidRefreshTokenException
-      | MissingRefreshTokenException
-      | RevokedRefreshTokenException
-      | ExpiredRefreshTokenException
-      | MalformedRefreshTokenException
-    >
-  >;
-  abstract getStoredTokenFromRefreshTokenPayload(
-    payload: RefreshToken
-  ): Promise<
-    Result<
-      RefreshTokenEntity,
-      InvalidRefreshTokenException | MissingRefreshTokenException
-    >
-  >;
-  abstract revokeToken(
-    refreshToken: RefreshTokenEntity
-  ): Promise<Result<RefreshTokenEntity, never>>;
-}
 
 const REFRESH_TOKEN_TTL = 1000 * 60 * 60 * 24 * 90;
 

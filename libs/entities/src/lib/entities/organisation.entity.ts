@@ -1,4 +1,4 @@
-import { UserEntity } from "../user/repo/user.entity";
+import { UserEntity } from "./user.entity";
 
 export class OrganisationEntity {
   id: string;
@@ -6,6 +6,7 @@ export class OrganisationEntity {
   lastUpdatedAt: Date;
   deletedAt: Date;
   name: string;
+  creator: UserEntity;
   members: UserEntity[];
 
   constructor(name: string, creator: UserEntity) {

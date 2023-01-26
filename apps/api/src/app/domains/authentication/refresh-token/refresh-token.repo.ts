@@ -1,6 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { RefreshTokenEntity } from "./refresh-token.entity";
-import { UserEntity } from "../../user/repo/user.entity";
+import { RefreshTokenEntity, UserEntity } from "@translate-dashboard/entities";
 
 export abstract class IRefreshTokenRepo {
   abstract createRefreshToken(

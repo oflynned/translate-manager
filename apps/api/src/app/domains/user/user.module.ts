@@ -1,7 +1,8 @@
 import { Module } from "@nestjs/common";
-import { IUserService, UserService } from "./service/user.service";
-import { IUserRepo, UserRepo } from "./repo/user.repo";
+import { UserService } from "./user.service";
+import { IUserRepo, UserRepo } from "./user.repo";
 import { HashingModule } from "../hashing/hashing.module";
+import { IUserService } from "@translate-dashboard/service-definitions";
 
 @Module({
   imports: [HashingModule],

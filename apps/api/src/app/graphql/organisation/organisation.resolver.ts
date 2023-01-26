@@ -1,16 +1,16 @@
 import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
-import { IOrganisationService } from "../../domains/organisation/organisation.service";
-import { UseGuards } from "@nestjs/common";
 import { AccessTokenGuard } from "../../core/guards/access-token.guard";
 import { OrganisationResult } from "@translate-manager/graphql-types";
 import { CreateOrganisationSchema } from "./schema/create-organisation.schema";
 import { CurrentUser } from "../../core/decorators/current-user.decorator";
-import { UserEntity } from "../../domains/user/repo/user.entity";
+import { UserEntity } from "@translate-dashboard/entities";
 import { OrganisationMapper } from "./organisation.mapper";
 import {
   DeleteOrganisationDto,
   GetOrganisationByIdDto,
 } from "@translate-dashboard/dto";
+import { UseGuards } from "@nestjs/common";
+import { IOrganisationService } from "@translate-dashboard/service-definitions";
 
 @Resolver()
 @UseGuards(AccessTokenGuard)
@@ -66,7 +66,10 @@ export class OrganisationResolver {
     @Args("id") id: string
   ): Promise<OrganisationResult> {
     const dto: DeleteOrganisationDto = { id };
-    const organisation = await this.organisationService.deleteOrganisation(dto);
+    const organisation = await this.organisationService.deleteOrganisation(
+      dto,
+      user
+    );
 
     if (organisation.err) {
       return this.mapper.toError(organisation.val);
@@ -74,4 +77,13 @@ export class OrganisationResolver {
 
     return this.mapper.toResult(organisation.val);
   }
+
+  // @ResolveField("creator")
+  // async creator(@Parent() organisation: Organisation): MemberResult {
+  //   const member = await this.
+  //   return {
+  //     __typename: "Member",
+  //
+  //   };
+  // }
 }

@@ -1,31 +1,19 @@
 import { Injectable } from "@nestjs/common";
-import { UserEntity } from "../../user/repo/user.entity";
+import { UserEntity } from "@translate-dashboard/entities";
 import { JwtService } from "@nestjs/jwt";
 import { SignOptions } from "jsonwebtoken";
-import { RefreshTokenEntity } from "../refresh-token/refresh-token.entity";
+import { RefreshTokenEntity } from "@translate-dashboard/entities";
 import { Err, Ok, Result } from "ts-results";
-import { UserNotFoundException } from "../../user/service/exceptions/user-not-found.exception";
-import { IApiConfigService } from "../../api-config/api-config.service";
-import { IUserService } from "../../user/service/user.service";
-import { MalformedAccessTokenException } from "../exceptions/malformed-access-token.exception";
-import { InvalidAccessTokenException } from "../exceptions/invalid-access-token.exception";
-
-export abstract class IAccessTokenService {
-  abstract createAccessToken(
-    user: UserEntity
-  ): Promise<Result<string, MalformedAccessTokenException>>;
-  abstract isAccessTokenValid(
-    encodedToken: string
-  ): Promise<Result<boolean, InvalidAccessTokenException>>;
-  abstract getUserFromAccessToken(
-    encodedToken: string
-  ): Promise<
-    Result<UserEntity, InvalidAccessTokenException | UserNotFoundException>
-  >;
-  abstract createAccessTokenFromRefreshToken(
-    refreshToken: RefreshTokenEntity
-  ): Promise<Result<string, MalformedAccessTokenException>>;
-}
+import { UserNotFoundException } from "@translate-dashboard/exceptions";
+import {
+  MalformedAccessTokenException,
+  InvalidAccessTokenException,
+} from "@translate-dashboard/exceptions";
+import {
+  IApiConfigService,
+  IUserService,
+  IAccessTokenService,
+} from "@translate-dashboard/service-definitions";
 
 @Injectable()
 export class AccessTokenService implements IAccessTokenService {

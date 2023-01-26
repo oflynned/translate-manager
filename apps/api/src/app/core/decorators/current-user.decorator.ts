@@ -5,7 +5,7 @@ import {
 } from "@nestjs/common";
 import { GqlExecutionContext } from "@nestjs/graphql";
 import { RequestContext } from "../guards/request-context";
-import { UserEntity } from "../../domains/user/repo/user.entity";
+import { UserEntity } from "@translate-dashboard/entities";
 
 export const CurrentUser = createParamDecorator(
   (data: unknown, req: ExecutionContext) => {

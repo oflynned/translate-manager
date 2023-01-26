@@ -1,28 +1,21 @@
 import { Injectable } from "@nestjs/common";
-import { UserEntity } from "../repo/user.entity";
-import { IUserRepo } from "../repo/user.repo";
+import { UserEntity } from "@translate-dashboard/entities";
+import { IUserRepo } from "./user.repo";
 import {
   GetUserByEmailDto,
   CreateUserDto,
   GetUserByIdDto,
 } from "@translate-dashboard/dto";
-import { IHashingService } from "../../hashing/hashing.service";
-import { UserNotFoundException } from "./exceptions/user-not-found.exception";
 import { Err, Ok, Result } from "ts-results";
-import { InvalidUserException } from "./exceptions/invalid-user.exception";
-import { InvalidPasswordException } from "./exceptions/invalid-password.exception";
-
-export abstract class IUserService {
-  abstract createUser(
-    dto: CreateUserDto
-  ): Promise<Result<UserEntity, InvalidUserException>>;
-  abstract getUserByEmail(
-    dto: GetUserByEmailDto
-  ): Promise<Result<UserEntity, UserNotFoundException>>;
-  abstract getUserById(
-    dto: GetUserByIdDto
-  ): Promise<Result<UserEntity, UserNotFoundException>>;
-}
+import {
+  UserNotFoundException,
+  InvalidUserException,
+  InvalidPasswordException,
+} from "@translate-dashboard/exceptions";
+import {
+  IHashingService,
+  IUserService,
+} from "@translate-dashboard/service-definitions";
 
 @Injectable()
 export class UserService implements IUserService {

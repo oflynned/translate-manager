@@ -4,18 +4,24 @@ enum Role {
     VIEWER
 }
 
+type MemberNotFound {
+    message: String!
+}
+
 type Member {
+    id: ID!
     addedAt: DateTime!
     role: Role!
     user: UserResult
 }
 
 type InvitedMember {
+    id: ID!
     invitedAt: DateTime!
     user: UserResult
 }
 
-union MemberResult = Member | InvitedMember
+union MemberResult = Member | InvitedMember | MemberNotFound
 
 extend type Mutation {
     inviteMember(email: String!, organisationId: ID!): MemberResult!

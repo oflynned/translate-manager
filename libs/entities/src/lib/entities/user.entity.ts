@@ -1,4 +1,4 @@
-import { OrganisationEntity } from "../../organisation/organisation.entity";
+import { OrganisationEntity } from "./organisation.entity";
 
 export class UserEntity {
   id: string;

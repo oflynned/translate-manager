@@ -1,25 +1,21 @@
 import { Module } from "@nestjs/common";
-import {
-  AuthenticationService,
-  IAuthenticationService,
-} from "./authentication.service";
+import { AuthenticationService } from "./authentication.service";
 import { UserModule } from "../user/user.module";
 import { HashingModule } from "../hashing/hashing.module";
-import {
-  IRefreshTokenService,
-  RefreshTokenService,
-} from "./refresh-token/refresh-token.service";
-import {
-  AccessTokenService,
-  IAccessTokenService,
-} from "./access-token/access-token.service";
+import { RefreshTokenService } from "./refresh-token/refresh-token.service";
+import { AccessTokenService } from "./access-token/access-token.service";
 import {
   IRefreshTokenRepo,
   RefreshTokenRepo,
 } from "./refresh-token/refresh-token.repo";
 import { JwtModule } from "@nestjs/jwt";
 import { ApiConfigModule } from "../api-config/api-config.module";
-import { IApiConfigService } from "../api-config/api-config.service";
+import {
+  IAccessTokenService,
+  IApiConfigService,
+  IAuthenticationService,
+  IRefreshTokenService,
+} from "@translate-dashboard/service-definitions";
 
 @Module({
   imports: [

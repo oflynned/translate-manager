@@ -1,6 +1,10 @@
 import { Module } from "@nestjs/common";
-import { HashingService, IHashingService } from "./hashing.service";
-import { BcryptAlgorithm, IHashingAlgorithm } from "./bcrypt-algorithm.service";
+import { HashingService } from "./hashing.service";
+import { BcryptAlgorithm } from "./bcrypt-algorithm.service";
+import {
+  IHashingAlgorithm,
+  IHashingService,
+} from "@translate-dashboard/service-definitions";
 
 @Module({
   imports: [],

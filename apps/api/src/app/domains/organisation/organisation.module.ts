@@ -1,10 +1,8 @@
 import { Module } from "@nestjs/common";
 import { UserModule } from "../user/user.module";
-import {
-  IOrganisationService,
-  OrganisationService,
-} from "./organisation.service";
+import { OrganisationService } from "./organisation.service";
 import { IOrganisationRepo, OrganisationRepo } from "./organisation.repo";
+import { IOrganisationService } from "@translate-dashboard/service-definitions";
 
 @Module({
   imports: [UserModule],

@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
-import { OrganisationEntity } from "./organisation.entity";
-import { UserEntity } from "../user/repo/user.entity";
+import { OrganisationEntity } from "../../../../../../libs/entities/src/lib/entities/organisation.entity";
+import { UserEntity } from "../../../../../../libs/entities/src/lib/entities/user.entity";
 
 export abstract class IOrganisationRepo {
   abstract create(
@@ -16,7 +16,10 @@ export abstract class IOrganisationRepo {
     unwantedMemberId: string,
     user: UserEntity
   ): Promise<UserEntity[]>;
-  abstract deleteOrganisation(id: string): Promise<OrganisationEntity | null>;
+  abstract deleteOrganisation(
+    id: string,
+    user: UserEntity
+  ): Promise<OrganisationEntity | null>;
 }
 
 @Injectable()
@@ -43,7 +46,10 @@ export class OrganisationRepo implements IOrganisationRepo {
     return [];
   }
 
-  async deleteOrganisation(id: string): Promise<OrganisationEntity | null> {
+  async deleteOrganisation(
+    id: string,
+    user: UserEntity
+  ): Promise<OrganisationEntity | null> {
     return null;
   }
 }

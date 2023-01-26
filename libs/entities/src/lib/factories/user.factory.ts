@@ -1,4 +1,4 @@
-import { UserEntity } from "./user.entity";
+import { UserEntity } from "../entities";
 import { faker } from "@faker-js/faker";
 
 export const getFakeUser = (

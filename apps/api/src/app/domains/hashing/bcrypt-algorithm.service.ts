@@ -1,17 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import * as bcrypt from "bcrypt";
 import { Err, Ok, Result } from "ts-results";
-import { InvalidHashException } from "./exceptions/invalid-hash.exception";
-
-export abstract class IHashingAlgorithm {
-  abstract compare(
-    passwordAttempt: string,
-    hashedPassword: string
-  ): Promise<Result<boolean, InvalidHashException>>;
-  abstract hash(
-    password: string
-  ): Promise<Result<string, InvalidHashException>>;
-}
+import { InvalidHashException } from "@translate-dashboard/exceptions";
+import { IHashingAlgorithm } from "@translate-dashboard/service-definitions";
 
 @Injectable()
 export class BcryptAlgorithm implements IHashingAlgorithm {

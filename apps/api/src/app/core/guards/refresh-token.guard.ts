@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
-import { IRefreshTokenService } from "../../domains/authentication/refresh-token/refresh-token.service";
 import { GqlExecutionContext } from "@nestjs/graphql";
 import { RequestContext } from "./request-context";
+import { IRefreshTokenService } from "@translate-dashboard/service-definitions";
 
 @Injectable()
 export class RefreshTokenGuard implements CanActivate {
@@ -9,7 +9,14 @@ export class RefreshTokenGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const ctx = GqlExecutionContext.create(context).getContext();
-    const encodedToken = ctx.req.headers["x-refresh-token"] as string;
+    const encodedToken = ctx.req.headers["x-refresh-token"] as
+      | string
+      | undefined;
+
+    if (!encodedToken) {
+      return false;
+    }
+
     const token = await this.refreshTokenService.resolveRefreshToken(
       encodedToken
     );

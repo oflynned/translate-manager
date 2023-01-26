@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
-import { ApiConfigService, IApiConfigService } from "./api-config.service";
+import { ApiConfigService } from "./api-config.service";
+import { IApiConfigService } from "@translate-dashboard/service-definitions";
 
 @Module({
   imports: [ConfigModule],

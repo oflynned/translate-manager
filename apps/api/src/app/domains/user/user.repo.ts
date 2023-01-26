@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { UserEntity } from "./user.entity";
+import { UserEntity } from "@translate-dashboard/entities";
 
 export abstract class IUserRepo {
   abstract create(

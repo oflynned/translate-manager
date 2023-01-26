@@ -1,19 +1,16 @@
 import { Injectable } from "@nestjs/common";
-import { IUserService } from "../user/service/user.service";
-import { IHashingService } from "../hashing/hashing.service";
 import { GetUserByCredentialsDto } from "@translate-dashboard/dto";
 import { Err, Ok, Result } from "ts-results";
-import { WrongPasswordException } from "./exceptions/wrong-password.exception";
-import { UserEntity } from "../user/repo/user.entity";
-import { UserNotFoundException } from "../user/service/exceptions/user-not-found.exception";
-
-export abstract class IAuthenticationService {
-  abstract getUserByCredentials(
-    dto: GetUserByCredentialsDto
-  ): Promise<
-    Result<UserEntity, UserNotFoundException | WrongPasswordException>
-  >;
-}
+import { UserEntity } from "@translate-dashboard/entities";
+import {
+  WrongPasswordException,
+  UserNotFoundException,
+} from "@translate-dashboard/exceptions";
+import {
+  IAuthenticationService,
+  IHashingService,
+  IUserService,
+} from "@translate-dashboard/service-definitions";
 
 @Injectable()
 export class AuthenticationService implements IAuthenticationService {
