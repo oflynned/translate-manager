@@ -1,10 +1,12 @@
 import { mock } from "jest-mock-extended";
-import { IUserService } from "../user/user.service";
-import { IHashingService } from "../hashing/hashing.service";
 import { AuthenticationService } from "./authentication.service";
-import { GetUserByCredentialsDto } from "../../../../../../libs/dto/src/lib/authentication/get-user-by-credentials.dto";
+import { GetUserByCredentialsDto } from "@translate-dashboard/dto";
 import { Err, Ok } from "ts-results";
-import { getFakeUser } from "../../../../../../libs/entities/src/lib/factories/user.factory";
+import { getFakeUser } from "@translate-dashboard/entities";
+import {
+  IHashingService,
+  IUserService,
+} from "@translate-dashboard/service-definitions";
 
 const userService = mock<IUserService>();
 const hashingService = mock<IHashingService>();

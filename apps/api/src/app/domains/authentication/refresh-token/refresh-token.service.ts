@@ -1,7 +1,11 @@
 import { Injectable } from "@nestjs/common";
-import { UserEntity, RefreshTokenEntity } from "@translate-dashboard/entities";
+import {
+  UserEntity,
+  RefreshTokenEntity,
+  RefreshToken,
+  LongLivedToken,
+} from "@translate-dashboard/entities";
 import { Err, Ok, Result } from "ts-results";
-import { RefreshToken } from "./refresh-token";
 import { JwtService } from "@nestjs/jwt";
 import { IRefreshTokenRepo } from "./refresh-token.repo";
 import {
@@ -17,11 +21,6 @@ import {
   IRefreshTokenService,
   IUserService,
 } from "@translate-dashboard/service-definitions";
-
-export type LongLivedToken = {
-  user: UserEntity;
-  refreshToken: RefreshTokenEntity;
-};
 
 const REFRESH_TOKEN_TTL = 1000 * 60 * 60 * 24 * 90;
 

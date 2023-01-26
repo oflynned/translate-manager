@@ -1,6 +1,6 @@
 import { UserEntity } from "./user.entity";
 import { OrganisationEntity } from "./organisation.entity";
-import { Role } from "./role";
+import { Role } from "../types/role";
 
 export class MemberEntity {
   id: string;

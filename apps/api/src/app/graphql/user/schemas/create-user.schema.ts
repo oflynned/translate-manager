@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { CreateUserDto } from "../../../../../../../libs/dto/src/lib/user/create-user.dto";
+import { CreateUserDto } from "@translate-dashboard/dto";
 import { z } from "zod";
 import { SchemaValidator } from "@translate-dashboard/schema-validator";
 

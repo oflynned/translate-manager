@@ -1,6 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { OrganisationEntity } from "../../../../../../libs/entities/src/lib/entities/organisation.entity";
-import { UserEntity } from "../../../../../../libs/entities/src/lib/entities/user.entity";
+import { OrganisationEntity, UserEntity } from "@translate-dashboard/entities";
 
 export abstract class IOrganisationRepo {
   abstract create(

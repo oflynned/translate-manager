@@ -1,5 +1,10 @@
 import { Result } from "ts-results";
-import { RefreshTokenEntity, UserEntity } from "@translate-dashboard/entities";
+import {
+  LongLivedToken,
+  RefreshToken,
+  RefreshTokenEntity,
+  UserEntity,
+} from "@translate-dashboard/entities";
 import {
   ExpiredRefreshTokenException,
   InvalidRefreshTokenException,
@@ -7,8 +12,6 @@ import {
   MissingRefreshTokenException,
   RevokedRefreshTokenException,
 } from "@translate-dashboard/exceptions";
-import { RefreshToken } from "../../../../apps/api/src/app/domains/authentication/refresh-token/refresh-token";
-import { LongLivedToken } from "../../../../apps/api/src/app/domains/authentication/refresh-token/refresh-token.service";
 
 export abstract class IRefreshTokenService {
   abstract isRefreshTokenValid(

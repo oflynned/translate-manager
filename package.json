@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "lint:api": "nx run api:lint",
     "nx:app:be:new": "nx g @nrwl/nest:app",
     "nx:app:fe:new": "nx g @nrwl/next:app",
     "start:api": "nx run api:serve",

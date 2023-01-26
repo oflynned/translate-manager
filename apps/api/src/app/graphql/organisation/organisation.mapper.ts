@@ -2,7 +2,7 @@ import {
   GraphqlResultMapper,
   OrganisationResult,
 } from "@translate-manager/graphql-types";
-import { OrganisationEntity } from "../../../../../../libs/entities/src/lib/entities/organisation.entity";
+import { OrganisationEntity } from "@translate-dashboard/entities";
 import { Injectable } from "@nestjs/common";
 
 @Injectable()
