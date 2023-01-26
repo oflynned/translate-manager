@@ -30,7 +30,7 @@ export class HashingService implements IHashingService {
       return false;
     }
 
-    return result.unwrap();
+    return result.val;
   }
 
   async toHash(
