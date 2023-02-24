@@ -12,13 +12,13 @@ import { OrganisationEntity } from "./organisation.entity";
 
 @Entity()
 export class UserEntity extends BaseEntity {
-  @Property()
+  @Property({ type: "string" })
   name!: string;
 
-  @Property()
+  @Property({ type: "string" })
   email!: string;
 
-  @Property()
+  @Property({ type: "string" })
   hash!: string;
 
   @OneToMany(() => OrganisationEntity, (organisation) => organisation.founder)
