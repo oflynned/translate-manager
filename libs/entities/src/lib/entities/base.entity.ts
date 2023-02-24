@@ -6,12 +6,12 @@ export class BaseEntity {
   @PrimaryKey()
   id: string = v4();
 
-  @Property()
+  @Property({ type: "datetime" })
   createdAt = new Date();
 
-  @Property()
+  @Property({ type: "datetime" })
   lastUpdatedAt?: Date;
 
-  @Property()
+  @Property({ type: "datetime" })
   deletedAt?: Date;
 }

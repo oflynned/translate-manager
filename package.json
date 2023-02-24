@@ -3,10 +3,11 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "api:migrate:up": "mikro-orm migration:up",
     "api:start": "nx run api:serve",
     "dashboard:start": "nx run dashboard:serve",
     "lint:api": "nx run api:lint",
+    "migrate:create": "MIKRO_ORM_CLI_TS_CONFIG_PATH=tsconfig.base.json mikro-orm migration:create",
+    "migrate:up": "MIKRO_ORM_CLI_TS_CONFIG_PATH=tsconfig.base.json mikro-orm migration:up",
     "typecheck:api": "tsc --noEmit --project ./apps/api/tsconfig.json",
     "typecheck:dashboard": "tsc --noEmit --project ./apps/dashboard/tsconfig.json",
     "types:generate": "nx run graphql-types:generate-types"
@@ -105,5 +106,11 @@
     "vite": "4.1.4",
     "vitest": "0.25.8",
     "webpack": "5.75.0"
+  },
+  "mikro-orm": {
+    "useTsNode": true,
+    "configPaths": [
+      "./mikro-orm.config.ts"
+    ]
   }
 }

@@ -11,7 +11,7 @@ import { MemberEntity } from "./member.entity";
 
 @Entity()
 export class OrganisationEntity extends BaseEntity {
-  @Property()
+  @Property({ type: "string" })
   name!: string;
 
   @ManyToOne(() => UserEntity)

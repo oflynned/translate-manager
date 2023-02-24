@@ -1,3 +1,4 @@
+import { IApiConfigService } from "@translate-dashboard/service-definitions";
 import { Options, defineConfig } from "@mikro-orm/postgresql";
 import {
   MemberEntity,
@@ -6,10 +7,18 @@ import {
   UserEntity,
 } from "@translate-dashboard/entities";
 import { ReflectMetadataProvider } from "@mikro-orm/core";
-import * as process from "process";
-export const getDatabaseConfig = (): Options => {
+
+export const getDatabaseConfig = (
+  configService: IApiConfigService
+): Options => {
+  const url = configService.getDatabaseUrl();
+
+  if (url.err) {
+    throw new Error(url.val.name);
+  }
+
   return defineConfig({
-    clientUrl: process.env.DATABASE_URL,
+    clientUrl: url.val,
     metadataProvider: ReflectMetadataProvider,
     entities: [
       UserEntity,

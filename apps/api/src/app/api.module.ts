@@ -21,7 +21,13 @@ import {
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    MikroOrmModule.forRoot(getDatabaseConfig()),
+    MikroOrmModule.forRootAsync({
+      imports: [ApiConfigModule],
+      inject: [IApiConfigService],
+      useFactory: (configService: IApiConfigService) => {
+        return getDatabaseConfig(configService);
+      },
+    }),
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
       imports: [ApiConfigModule],

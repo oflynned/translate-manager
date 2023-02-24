@@ -4,13 +4,13 @@ import { Entity, ManyToOne, Property } from "@mikro-orm/core";
 
 @Entity()
 export class RefreshTokenEntity extends BaseEntity {
-  @Property()
+  @Property({ type: "boolean" })
   revoked = false;
 
-  @Property()
+  @Property({ type: "datetime" })
   revokedAt?: Date;
 
-  @Property()
+  @Property({ type: "datetime" })
   expiresAt!: Date;
 
   @ManyToOne(() => UserEntity)
