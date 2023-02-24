@@ -8,6 +8,7 @@
     "strictNullChecks": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "esModuleInterop": true,
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
@@ -19,6 +20,12 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@translate-dashboard/decorators": [
+        "libs/decorators/src/index.ts"
+      ],
+      "@translate-dashboard/domains": [
+        "libs/domains/src/index.ts"
+      ],
       "@translate-dashboard/dto": [
         "libs/dto/src/index.ts"
       ],
@@ -27,6 +34,12 @@
       ],
       "@translate-dashboard/exceptions": [
         "libs/exceptions/src/index.ts"
+      ],
+      "@translate-dashboard/guards": [
+        "libs/guards/src/index.ts"
+      ],
+      "@translate-dashboard/mikro-orm": [
+        "libs/mikro-orm/src/index.ts"
       ],
       "@translate-dashboard/schema-validator": [
         "libs/schema-validator/src/index.ts"
