@@ -1,5 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { RefreshTokenEntity, UserEntity } from "@translate-dashboard/entities";
+import { InjectRepository } from "@mikro-orm/nestjs";
+import { EntityRepository } from "@mikro-orm/postgresql";
 
 export abstract class IRefreshTokenRepo {
   abstract createRefreshToken(
@@ -15,7 +17,10 @@ export abstract class IRefreshTokenRepo {
 
 @Injectable()
 export class RefreshTokenRepo implements IRefreshTokenRepo {
-  private readonly refreshTokens: RefreshTokenEntity[] = [];
+  constructor(
+    @InjectRepository(RefreshTokenEntity)
+    private readonly repo: EntityRepository<RefreshTokenEntity>
+  ) {}
 
   async revokeToken(
     refreshToken: RefreshTokenEntity
@@ -27,19 +32,19 @@ export class RefreshTokenRepo implements IRefreshTokenRepo {
   }
 
   async getRefreshTokenById(id: string): Promise<RefreshTokenEntity | null> {
-    const token = this.refreshTokens.find((token) => token.id === id);
-
-    return token ?? null;
+    return this.repo.findOne({ id });
   }
 
   async createRefreshToken(
     user: UserEntity,
     ttl: number
   ): Promise<RefreshTokenEntity> {
-    const expiresAt = new Date(Date.now() + ttl);
-    const refreshToken = new RefreshTokenEntity(user, expiresAt);
+    const refreshToken = new RefreshTokenEntity();
 
-    this.refreshTokens.push(refreshToken);
+    refreshToken.user = user;
+    refreshToken.expiresAt = new Date(Date.now() + ttl);
+
+    await this.repo.persistAndFlush(refreshToken);
 
     return refreshToken;
   }

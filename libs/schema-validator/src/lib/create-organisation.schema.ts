@@ -1,7 +1,7 @@
 import { CreateOrganisationDto } from "@translate-dashboard/dto";
-import { SchemaValidator } from "@translate-dashboard/schema-validator";
 import { z, ZodType } from "zod";
 import { Injectable } from "@nestjs/common";
+import { SchemaValidator } from "./schema.validator";
 
 @Injectable()
 export class CreateOrganisationSchema extends SchemaValidator<CreateOrganisationDto> {

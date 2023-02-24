@@ -1,10 +1,17 @@
 import { UserEntity } from "./user.entity";
 import { OrganisationEntity } from "./organisation.entity";
-import { Role } from "../types/role";
+import { BaseEntity } from "./base.entity";
+import { Entity, Enum, ManyToOne, OneToOne } from "@mikro-orm/core";
+import { MemberRole } from "./role";
 
-export class MemberEntity {
-  id: string;
-  role: Role;
-  user: UserEntity;
-  organisation: OrganisationEntity;
+@Entity()
+export class MemberEntity extends BaseEntity {
+  @Enum(() => MemberRole)
+  role!: MemberRole;
+
+  @OneToOne(() => UserEntity)
+  user!: UserEntity;
+
+  @ManyToOne(() => OrganisationEntity)
+  organisation!: OrganisationEntity;
 }

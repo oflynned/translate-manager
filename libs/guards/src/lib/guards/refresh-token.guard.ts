@@ -1,6 +1,6 @@
 import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
 import { GqlExecutionContext } from "@nestjs/graphql";
-import { RequestContext } from "./request-context";
+import { RequestContext } from "../request-context";
 import { IRefreshTokenService } from "@translate-dashboard/service-definitions";
 
 @Injectable()

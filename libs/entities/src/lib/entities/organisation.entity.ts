@@ -1,17 +1,22 @@
 import { UserEntity } from "./user.entity";
+import { BaseEntity } from "./base.entity";
+import {
+  Collection,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  Property,
+} from "@mikro-orm/core";
+import { MemberEntity } from "./member.entity";
 
-export class OrganisationEntity {
-  id: string;
-  createdAt: Date;
-  lastUpdatedAt: Date;
-  deletedAt: Date;
-  name: string;
-  creator: UserEntity;
-  members: UserEntity[];
+@Entity()
+export class OrganisationEntity extends BaseEntity {
+  @Property()
+  name!: string;
 
-  constructor(name: string, creator: UserEntity) {
-    this.id = Date.now().toString();
-    this.name = name;
-    this.members = [creator];
-  }
+  @ManyToOne(() => UserEntity)
+  founder!: UserEntity;
+
+  @OneToMany(() => MemberEntity, (member) => member.organisation)
+  members = new Collection<MemberEntity>(this);
 }

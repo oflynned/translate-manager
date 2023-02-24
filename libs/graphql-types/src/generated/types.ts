@@ -175,8 +175,8 @@ export type MutationSetTimeArgs = {
 export type Organisation = {
   __typename?: "Organisation";
   createdAt: Scalars["DateTime"];
-  creator?: Maybe<MemberResult>;
   deletedAt?: Maybe<Scalars["DateTime"]>;
+  founder?: Maybe<UserResult>;
   id: Scalars["ID"];
   lastUpdatedAt?: Maybe<Scalars["DateTime"]>;
   members?: Maybe<Array<MemberResult>>;

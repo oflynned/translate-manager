@@ -1,9 +1,7 @@
-import {
-  GraphqlResultMapper,
-  OrganisationResult,
-} from "@translate-manager/graphql-types";
-import { OrganisationEntity } from "@translate-dashboard/entities";
 import { Injectable } from "@nestjs/common";
+import { GraphqlResultMapper } from "./mapper";
+import { OrganisationResult } from "../generated/types";
+import { OrganisationEntity } from "@translate-dashboard/entities";
 
 @Injectable()
 export class OrganisationMapper extends GraphqlResultMapper<
@@ -32,7 +30,7 @@ export class OrganisationMapper extends GraphqlResultMapper<
       createdAt: entity.createdAt,
       lastUpdatedAt: entity.lastUpdatedAt,
       members: null,
-      creator: null,
+      founder: null,
     };
   }
 }

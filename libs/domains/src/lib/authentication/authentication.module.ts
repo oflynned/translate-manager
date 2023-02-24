@@ -16,6 +16,8 @@ import {
   IAuthenticationService,
   IRefreshTokenService,
 } from "@translate-dashboard/service-definitions";
+import { MikroOrmModule } from "@mikro-orm/nestjs";
+import { RefreshTokenEntity } from "@translate-dashboard/entities";
 
 @Module({
   imports: [
@@ -39,6 +41,7 @@ import {
         };
       },
     }),
+    MikroOrmModule.forFeature([RefreshTokenEntity]),
     ApiConfigModule,
   ],
   providers: [

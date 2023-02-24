@@ -13,7 +13,6 @@ export const getFakeUser = (
     email: faker.internet.email(forename, surname),
     hash: faker.datatype.uuid(),
     name: `${forename} ${surname}`,
-    organisations: [],
     ...overrides,
-  };
+  } as any; // TODO fix me :)
 };

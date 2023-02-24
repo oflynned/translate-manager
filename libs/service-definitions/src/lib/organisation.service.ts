@@ -2,11 +2,13 @@ import {
   CreateOrganisationDto,
   DeleteOrganisationDto,
   GetOrganisationByIdDto,
+  GetOrganisationCreatorDto,
 } from "@translate-dashboard/dto";
 import { OrganisationEntity, UserEntity } from "@translate-dashboard/entities";
 import { Result } from "ts-results";
 import {
   InvalidOrganisationException,
+  MissingPermissionException,
   OrganisationNotFoundException,
 } from "@translate-dashboard/exceptions";
 
@@ -23,5 +25,14 @@ export abstract class IOrganisationService {
   abstract deleteOrganisation(
     dto: DeleteOrganisationDto,
     user: UserEntity
-  ): Promise<Result<OrganisationEntity, OrganisationNotFoundException>>;
+  ): Promise<
+    Result<
+      OrganisationEntity,
+      MissingPermissionException | OrganisationNotFoundException
+    >
+  >;
+
+  abstract getOrganisationFounder(
+    dto: GetOrganisationCreatorDto
+  ): Promise<Result<UserEntity, OrganisationNotFoundException>>;
 }

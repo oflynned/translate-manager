@@ -1,11 +1,11 @@
 import {
-  GraphqlResultMapper,
-  UserResult,
-} from "@translate-manager/graphql-types";
-import { UserEntity } from "@translate-dashboard/entities";
-import { InvalidUserException } from "@translate-dashboard/exceptions";
+  InvalidDtoException,
+  InvalidUserException,
+} from "@translate-dashboard/exceptions";
 import { Injectable } from "@nestjs/common";
-import { InvalidDtoException } from "@translate-dashboard/schema-validator";
+import { GraphqlResultMapper } from "./mapper";
+import { UserResult } from "../generated/types";
+import { UserEntity } from "@translate-dashboard/entities";
 
 @Injectable()
 export class UserMapper extends GraphqlResultMapper<UserEntity, UserResult> {

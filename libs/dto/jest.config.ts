@@ -1,16 +1,16 @@
 /* eslint-disable */
 export default {
-  displayName: 'dto',
-  preset: '../../jest.preset.js',
+  displayName: "dto",
+  preset: "../../jest.preset.js",
   globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-    }
+    "ts-jest": {
+      tsconfig: "<rootDir>/tsconfig.spec.json",
+    },
   },
-  testEnvironment: 'node',
+  testEnvironment: "node",
   transform: {
-    '^.+\\.[tj]s$': 'ts-jest'
+    "^.+\\.[tj]s$": "ts-jest",
   },
-  moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/libs/dto'
+  moduleFileExtensions: ["ts", "js", "html"],
+  coverageDirectory: "../../coverage/libs/dto",
 };

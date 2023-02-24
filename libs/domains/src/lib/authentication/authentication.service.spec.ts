@@ -7,6 +7,7 @@ import {
   IHashingService,
   IUserService,
 } from "@translate-dashboard/service-definitions";
+import { UserNotFoundException } from "@translate-dashboard/exceptions";
 
 const userService = mock<IUserService>();
 const hashingService = mock<IHashingService>();
@@ -25,7 +26,9 @@ const user = getFakeUser();
 describe("Authentication service", () => {
   describe("isMatchingPassword", () => {
     it("should return error result when user does not exist", async () => {
-      userService.getUserByEmail.mockResolvedValue(Err(new Error()));
+      userService.getUserByEmail.mockImplementation(async () =>
+        Err(new UserNotFoundException())
+      );
 
       const result = await authenticationService.getUserByCredentials(dto);
 
@@ -33,8 +36,8 @@ describe("Authentication service", () => {
     });
 
     it("should return error on user hash not matching password attempt", async () => {
-      userService.getUserByEmail.mockResolvedValue(Ok(user));
-      hashingService.isValid.mockResolvedValue(false);
+      userService.getUserByEmail.mockImplementation(async () => Ok(user));
+      hashingService.isValid.mockImplementation(async () => false);
 
       const result = await authenticationService.getUserByCredentials(dto);
 
@@ -42,8 +45,8 @@ describe("Authentication service", () => {
     });
 
     it("should return ok result on user hash matching password attempt", async () => {
-      userService.getUserByEmail.mockResolvedValue(Ok(user));
-      hashingService.isValid.mockResolvedValue(true);
+      userService.getUserByEmail.mockImplementation(async () => Ok(user));
+      hashingService.isValid.mockImplementation(async () => true);
 
       const result = await authenticationService.getUserByCredentials(dto);
 

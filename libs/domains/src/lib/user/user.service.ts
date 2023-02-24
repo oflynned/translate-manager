@@ -16,17 +16,27 @@ import {
   IHashingService,
   IUserService,
 } from "@translate-dashboard/service-definitions";
+import { CreateUserSchema } from "../../../../schema-validator/src/lib/create-user.schema";
 
 @Injectable()
 export class UserService implements IUserService {
   constructor(
     private readonly repo: IUserRepo,
-    private readonly hashingService: IHashingService
+    private readonly hashingService: IHashingService,
+    private readonly createUserSchema: CreateUserSchema
   ) {}
 
   async createUser(
     dto: CreateUserDto
-  ): Promise<Result<UserEntity, InvalidPasswordException>> {
+  ): Promise<
+    Result<UserEntity, InvalidUserException | InvalidPasswordException>
+  > {
+    const payload = this.createUserSchema.validate(dto);
+
+    if (payload.err) {
+      return Err(new InvalidUserException());
+    }
+
     const existingUser = await this.repo.getByEmail(dto.email);
 
     if (existingUser) {

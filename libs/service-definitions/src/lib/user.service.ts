@@ -6,6 +6,7 @@ import {
 import { Result } from "ts-results";
 import { UserEntity } from "@translate-dashboard/entities";
 import {
+  InvalidPasswordException,
   InvalidUserException,
   UserNotFoundException,
 } from "@translate-dashboard/exceptions";
@@ -13,7 +14,9 @@ import {
 export abstract class IUserService {
   abstract createUser(
     dto: CreateUserDto
-  ): Promise<Result<UserEntity, InvalidUserException>>;
+  ): Promise<
+    Result<UserEntity, InvalidUserException | InvalidPasswordException>
+  >;
   abstract getUserByEmail(
     dto: GetUserByEmailDto
   ): Promise<Result<UserEntity, UserNotFoundException>>;

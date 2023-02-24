@@ -1,11 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { CreateUserDto } from "@translate-dashboard/dto";
 import { z } from "zod";
-import { SchemaValidator } from "@translate-dashboard/schema-validator";
+import { SchemaValidator } from "./schema.validator";
 
 @Injectable()
 export class CreateUserSchema extends SchemaValidator<CreateUserDto> {
-  getSchema(): z.ZodSchema<CreateUserDto> {
+  protected getSchema(): z.ZodSchema<CreateUserDto> {
     return z.object({
       name: z.string().min(1, "Name cannot be empty"),
       email: z.string().email("Email is not valid"),

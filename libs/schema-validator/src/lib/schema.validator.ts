@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { Err, Ok, Result } from "ts-results";
-import { InvalidDtoException } from "./invalid-dto.exception";
+import { InvalidDtoException } from "@translate-dashboard/exceptions";
 
 export abstract class SchemaValidator<T> {
   protected abstract getSchema(): z.ZodSchema<T>;

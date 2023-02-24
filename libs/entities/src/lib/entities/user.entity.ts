@@ -1,21 +1,32 @@
+import {
+  OneToMany,
+  Entity,
+  Property,
+  Collection,
+  OneToOne,
+} from "@mikro-orm/core";
+import { BaseEntity } from "./base.entity";
+import { MemberEntity } from "./member.entity";
+import { RefreshTokenEntity } from "./refresh-token.entity";
 import { OrganisationEntity } from "./organisation.entity";
 
-export class UserEntity {
-  id: string;
-  createdAt: Date;
-  lastUpdatedAt?: Date;
-  deletedAt?: Date;
-  name: string;
-  email: string;
-  hash: string;
-  organisations: OrganisationEntity[];
+@Entity()
+export class UserEntity extends BaseEntity {
+  @Property()
+  name!: string;
 
-  constructor(name: string, email: string, hash: string) {
-    this.id = Date.now().toString();
-    this.createdAt = new Date();
-    this.name = name;
-    this.email = email;
-    this.hash = hash;
-    this.organisations = [];
-  }
+  @Property()
+  email!: string;
+
+  @Property()
+  hash!: string;
+
+  @OneToMany(() => OrganisationEntity, (organisation) => organisation.founder)
+  founderOf = new Collection<OrganisationEntity>(this);
+
+  @OneToOne(() => MemberEntity, (member) => member.user)
+  memberOf = new Collection<MemberEntity>(this);
+
+  @OneToMany(() => RefreshTokenEntity, (token) => token.user)
+  refreshTokens = new Collection<RefreshTokenEntity>(this);
 }
