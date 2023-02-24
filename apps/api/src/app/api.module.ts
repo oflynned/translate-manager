@@ -1,20 +1,27 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
-import { AuthenticationModule } from "./domains/authentication/authentication.module";
-import { OrganisationModule } from "./domains/organisation/organisation.module";
-import { UserModule } from "./domains/user/user.module";
-import { HashingModule } from "./domains/hashing/hashing.module";
-import { AuthorisationModule } from "./domains/authorisation/authorisation.module";
 import { GraphQLModule } from "@nestjs/graphql";
 import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
-import { ApiConfigModule } from "./domains/api-config/api-config.module";
 import { UserGraphQLModule } from "./graphql/user/user.module";
 import { JwtGraphQLModule } from "./graphql/jwt/jwt.graphql.module";
 import { OrganisationGraphqlModule } from "./graphql/organisation/organisation.module";
+import { MikroOrmModule } from "@mikro-orm/nestjs";
+import { IApiConfigService } from "@translate-dashboard/service-definitions";
+import { getDatabaseConfig } from "@translate-dashboard/mikro-orm";
+import {
+  ApiConfigModule,
+  AuthenticationModule,
+  AuthorisationModule,
+  HashingModule,
+  MemberModule,
+  OrganisationModule,
+  UserModule,
+} from "@translate-dashboard/domains";
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    MikroOrmModule.forRoot(getDatabaseConfig()),
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
       imports: [ApiConfigModule],
@@ -32,6 +39,7 @@ import { OrganisationGraphqlModule } from "./graphql/organisation/organisation.m
     AuthenticationModule,
     AuthorisationModule,
     HashingModule,
+    MemberModule,
     OrganisationModule,
     UserModule,
     UserGraphQLModule,

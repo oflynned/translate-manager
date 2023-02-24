@@ -1,13 +1,11 @@
 import { Module } from "@nestjs/common";
 import { UserResolver } from "./user.resolver";
-import { UserModule } from "../../domains/user/user.module";
-import { AuthenticationModule } from "../../domains/authentication/authentication.module";
-import { UserMapper } from "./user.mapper";
-import { CreateUserSchema } from "./schemas/create-user.schema";
+import { GraphqlResultMapperModule } from "@translate-manager/graphql-types";
+import { AuthenticationModule, UserModule } from "@translate-dashboard/domains";
 
 @Module({
-  imports: [UserModule, AuthenticationModule],
-  providers: [UserResolver, UserMapper, CreateUserSchema],
+  imports: [UserModule, AuthenticationModule, GraphqlResultMapperModule],
+  providers: [UserResolver],
   exports: [UserResolver],
 })
 export class UserGraphQLModule {}

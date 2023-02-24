@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { JwtResolver } from "./jwt.resolver";
-import { AuthenticationModule } from "../../domains/authentication/authentication.module";
+import { AuthenticationModule } from "@translate-dashboard/domains";
 
 @Module({
   imports: [AuthenticationModule],
