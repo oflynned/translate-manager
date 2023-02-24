@@ -53,6 +53,7 @@ export type InvalidUser = {
 
 export type InvitedMember = {
   __typename?: "InvitedMember";
+  id: Scalars["ID"];
   invitedAt: Scalars["DateTime"];
   user?: Maybe<UserResult>;
 };
@@ -83,11 +84,17 @@ export type MalformedJwt = {
 export type Member = {
   __typename?: "Member";
   addedAt: Scalars["DateTime"];
+  id: Scalars["ID"];
   role: Role;
   user?: Maybe<UserResult>;
 };
 
-export type MemberResult = InvitedMember | Member;
+export type MemberNotFound = {
+  __typename?: "MemberNotFound";
+  message: Scalars["String"];
+};
+
+export type MemberResult = InvitedMember | Member | MemberNotFound;
 
 export type Mutation = {
   __typename?: "Mutation";
@@ -168,8 +175,8 @@ export type MutationSetTimeArgs = {
 export type Organisation = {
   __typename?: "Organisation";
   createdAt: Scalars["DateTime"];
-  creator?: Maybe<MemberResult>;
   deletedAt?: Maybe<Scalars["DateTime"]>;
+  founder?: Maybe<UserResult>;
   id: Scalars["ID"];
   lastUpdatedAt?: Maybe<Scalars["DateTime"]>;
   members?: Maybe<Array<MemberResult>>;

@@ -1,13 +1,13 @@
 import { Injectable, UseGuards } from "@nestjs/common";
 import { Args, Mutation, Resolver } from "@nestjs/graphql";
-import { IAccessTokenService } from "../../domains/authentication/access-token/access-token.service";
 import { JwtResult } from "@translate-manager/graphql-types";
-import { IRefreshTokenService } from "../../domains/authentication/refresh-token/refresh-token.service";
-import { IAuthenticationService } from "../../domains/authentication/authentication.service";
-import { UserNotFoundException } from "../../domains/user/service/exceptions/user-not-found.exception";
-import { RefreshTokenEntity } from "../../domains/authentication/refresh-token/refresh-token.entity";
-import { RefreshTokenGuard } from "../../core/guards/refresh-token.guard";
-import { RefreshToken } from "../../core/decorators/refresh-token.decorator";
+import {
+  IAccessTokenService,
+  IAuthenticationService,
+  IRefreshTokenService,
+} from "@translate-dashboard/service-definitions";
+import { RefreshTokenEntity } from "@translate-dashboard/entities";
+import { RefreshToken, RefreshTokenGuard } from "@translate-dashboard/guards";
 
 @Injectable()
 @Resolver()

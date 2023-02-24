@@ -1,3 +1,3 @@
 export type DeleteOrganisationDto = {
-  id: string;
+  organisationId: string;
 };

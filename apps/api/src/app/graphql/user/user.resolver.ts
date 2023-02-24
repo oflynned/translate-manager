@@ -1,26 +1,22 @@
 import { Injectable, UseGuards } from "@nestjs/common";
-import { IUserService } from "../../domains/user/service/user.service";
 import { Resolver, Query, Args, Mutation } from "@nestjs/graphql";
-import { UserEntity } from "../../domains/user/repo/user.entity";
-import { UserResult } from "@translate-manager/graphql-types";
-import { CurrentUser } from "../../core/decorators/current-user.decorator";
-import { AccessTokenGuard } from "../../core/guards/access-token.guard";
-import { UserMapper } from "./user.mapper";
-import { CreateUserSchema } from "./schemas/create-user.schema";
+import { UserEntity } from "@translate-dashboard/entities";
+import { UserMapper, UserResult } from "@translate-manager/graphql-types";
+import { IUserService } from "@translate-dashboard/service-definitions";
+import { AccessTokenGuard, CurrentUser } from "@translate-dashboard/guards";
 
 @Resolver()
 @Injectable()
 export class UserResolver {
   constructor(
     private readonly userService: IUserService,
-    private readonly mapper: UserMapper,
-    private readonly schema: CreateUserSchema
+    private readonly userMapper: UserMapper
   ) {}
 
   @Query("getMe")
   @UseGuards(AccessTokenGuard)
   async getMe(@CurrentUser() user: UserEntity): Promise<UserResult> {
-    return this.mapper.toResult(user);
+    return this.userMapper.toResult(user);
   }
 
   @Query("getUserById")
@@ -29,10 +25,10 @@ export class UserResolver {
     const result = await this.userService.getUserById({ id });
 
     if (result.err) {
-      return this.mapper.toError(result.val);
+      return this.userMapper.toError(result.val);
     }
 
-    return this.mapper.toResult(result.val);
+    return this.userMapper.toResult(result.val);
   }
 
   @Mutation("createUser")
@@ -41,22 +37,12 @@ export class UserResolver {
     @Args("email") email: string,
     @Args("password") password: string
   ): Promise<UserResult> {
-    const dto = this.schema.validate({
-      name,
-      email,
-      password,
-    });
-
-    if (dto.err) {
-      return this.mapper.toError(dto.val);
-    }
-
-    const user = await this.userService.createUser(dto.val);
+    const user = await this.userService.createUser({ name, email, password });
 
     if (user.err) {
-      return this.mapper.toError(user.val);
+      return this.userMapper.toError(user.val);
     }
 
-    return this.mapper.toResult(user.val);
+    return this.userMapper.toResult(user.val);
   }
 }

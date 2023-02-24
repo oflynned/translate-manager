@@ -8,6 +8,7 @@
     "strictNullChecks": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "esModuleInterop": true,
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
@@ -19,11 +20,32 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@translate-dashboard/decorators": [
+        "libs/decorators/src/index.ts"
+      ],
+      "@translate-dashboard/domains": [
+        "libs/domains/src/index.ts"
+      ],
       "@translate-dashboard/dto": [
         "libs/dto/src/index.ts"
       ],
+      "@translate-dashboard/entities": [
+        "libs/entities/src/index.ts"
+      ],
+      "@translate-dashboard/exceptions": [
+        "libs/exceptions/src/index.ts"
+      ],
+      "@translate-dashboard/guards": [
+        "libs/guards/src/index.ts"
+      ],
+      "@translate-dashboard/mikro-orm": [
+        "libs/mikro-orm/src/index.ts"
+      ],
       "@translate-dashboard/schema-validator": [
         "libs/schema-validator/src/index.ts"
+      ],
+      "@translate-dashboard/service-definitions": [
+        "libs/service-definitions/src/index.ts"
       ],
       "@translate-manager/graphql-types": [
         "libs/graphql-types/src/index.ts"
