@@ -16,7 +16,7 @@ import {
   IHashingService,
   IUserService,
 } from "@translate-dashboard/service-definitions";
-import { CreateUserSchema } from "../../../../schema-validator/src/lib/create-user.schema";
+import { CreateUserSchema } from "@translate-dashboard/schema-validator";
 
 @Injectable()
 export class UserService implements IUserService {

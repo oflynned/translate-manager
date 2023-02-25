@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { AuthenticationService } from "./authentication.service";
-import { UserModule } from "../user/user.module";
-import { HashingModule } from "../hashing/hashing.module";
+import { UserModule } from "../user";
+import { HashingModule } from "../hashing";
 import { RefreshTokenService } from "./refresh-token/refresh-token.service";
 import { AccessTokenService } from "./access-token/access-token.service";
 import {
@@ -9,7 +9,7 @@ import {
   RefreshTokenRepo,
 } from "./refresh-token/refresh-token.repo";
 import { JwtModule } from "@nestjs/jwt";
-import { ApiConfigModule } from "../api-config/api-config.module";
+import { ApiConfigModule } from "../api-config";
 import {
   IAccessTokenService,
   IApiConfigService,

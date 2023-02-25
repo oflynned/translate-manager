@@ -45,7 +45,7 @@ export class OrganisationService implements IOrganisationService {
   async getOrganisationById(
     dto: GetOrganisationByIdDto
   ): Promise<Result<OrganisationEntity, OrganisationNotFoundException>> {
-    const organisation = await this.repo.findById(dto.organisationId);
+    const organisation = await this.repo.findById(dto.id);
 
     if (!organisation) {
       return Err(new OrganisationNotFoundException());

@@ -55,6 +55,7 @@ export type InvitedMember = {
   __typename?: "InvitedMember";
   id: Scalars["ID"];
   invitedAt: Scalars["DateTime"];
+  role: Role;
   user?: Maybe<UserResult>;
 };
 
@@ -99,7 +100,6 @@ export type MemberResult = InvitedMember | Member | MemberNotFound;
 export type Mutation = {
   __typename?: "Mutation";
   addMember: MemberResult;
-  addTranslation: TermResult;
   confirmEmail: UserResult;
   createOrganisation: OrganisationResult;
   createRefreshToken: JwtResult;
@@ -112,17 +112,13 @@ export type Mutation = {
   removeTranslation: TermResult;
   revokeRefreshToken: JwtResult;
   setTime: Scalars["DateTime"];
+  setTranslations: TermResult;
 };
 
 export type MutationAddMemberArgs = {
   organisationId: Scalars["ID"];
+  role: Role;
   userId: Scalars["ID"];
-};
-
-export type MutationAddTranslationArgs = {
-  languageCode: Scalars["String"];
-  termId: Scalars["ID"];
-  translation: Scalars["String"];
 };
 
 export type MutationConfirmEmailArgs = {
@@ -164,12 +160,17 @@ export type MutationRemoveMemberArgs = {
 };
 
 export type MutationRemoveTranslationArgs = {
-  languageCode: Scalars["String"];
   termId: Scalars["ID"];
 };
 
 export type MutationSetTimeArgs = {
   time: Scalars["DateTime"];
+};
+
+export type MutationSetTranslationsArgs = {
+  languageCode: Scalars["String"];
+  termId: Scalars["ID"];
+  translations: Array<Scalars["String"]>;
 };
 
 export type Organisation = {
@@ -196,6 +197,7 @@ export type Query = {
   __typename?: "Query";
   getMe: UserResult;
   getOrganisationById: OrganisationResult;
+  getTerms?: Maybe<Array<TermResult>>;
   getTermsByDomain?: Maybe<Array<TermResult>>;
   getTime: Scalars["DateTime"];
   getUntranslatedTerms?: Maybe<Array<TermResult>>;
@@ -227,6 +229,7 @@ export enum Role {
 
 export type Term = {
   __typename?: "Term";
+  addedBy?: Maybe<UserResult>;
   declension: Scalars["Int"];
   domain: Scalars["String"];
   gender: Gender;

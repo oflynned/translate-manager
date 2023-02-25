@@ -5,18 +5,32 @@ import {
   OrganisationNotFoundException,
 } from "@translate-dashboard/exceptions";
 import {
-  GetOrganisationCreatorDto,
+  AddMemberDto,
+  GetMemberDto,
   GetOrganisationMemberDto,
   GetOrganisationMembersDto,
+  RemoveMemberDto,
 } from "@translate-dashboard/dto";
+import { InvalidMemberException } from "../../../exceptions/src/lib/member/invalid-member.exception";
 
 export abstract class IMemberService {
   abstract getMembers(
-    dto: GetOrganisationMembersDto,
-    user: UserEntity
+    dto: GetOrganisationMembersDto
   ): Promise<Result<MemberEntity[], OrganisationNotFoundException>>;
+  abstract getOrganisationMember(
+    dto: GetOrganisationMemberDto
+  ): Promise<Result<MemberEntity, MemberNotFoundException>>;
   abstract getMember(
-    dto: GetOrganisationMemberDto,
+    dto: GetMemberDto
+  ): Promise<Result<MemberEntity, MemberNotFoundException>>;
+  abstract addMember(
+    dto: AddMemberDto,
+    user: UserEntity
+  ): Promise<
+    Result<MemberEntity, MemberNotFoundException | InvalidMemberException>
+  >;
+  abstract removeMember(
+    dto: RemoveMemberDto,
     user: UserEntity
   ): Promise<Result<MemberEntity, MemberNotFoundException>>;
 }

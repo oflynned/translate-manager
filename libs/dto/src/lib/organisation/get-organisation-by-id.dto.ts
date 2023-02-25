@@ -1,3 +1,3 @@
 export type GetOrganisationByIdDto = {
-  organisationId: string;
+  id: string;
 };
