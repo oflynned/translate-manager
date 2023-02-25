@@ -34,7 +34,7 @@ export class OrganisationResolver {
     @Args("organisationId") organisationId: string
   ): Promise<OrganisationResult> {
     const organisation = await this.organisationService.getOrganisationById({
-      organisationId,
+      id: organisationId,
     });
 
     if (organisation.err) {

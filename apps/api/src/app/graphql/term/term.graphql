@@ -11,6 +11,7 @@ type Term {
     term: String!
     languageCode: String!
     translations: [Translation!]
+    addedBy: UserResult
 }
 
 type Translation {
@@ -26,10 +27,11 @@ union TermResult = Term | TermNotFound
 
 extend type Query {
     getTermsByDomain(domain:String): [TermResult!]
+    getTerms: [TermResult!]
     getUntranslatedTerms: [TermResult!]
 }
 
 extend type Mutation {
-    addTranslation(termId: ID!, translation: String!, languageCode: String!): TermResult!
-    removeTranslation(termId: ID!, languageCode: String!): TermResult!
+    setTranslations(termId: ID!, translations: [String!]!, languageCode: String!): TermResult!
+    removeTranslation(termId: ID!): TermResult!
 }
