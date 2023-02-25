@@ -51,14 +51,6 @@ export type InvalidUser = {
   message: Scalars["String"];
 };
 
-export type InvitedMember = {
-  __typename?: "InvitedMember";
-  id: Scalars["ID"];
-  invitedAt: Scalars["DateTime"];
-  role: Role;
-  user?: Maybe<UserResult>;
-};
-
 export type Jwt = {
   __typename?: "Jwt";
   accessToken: Scalars["String"];
@@ -95,7 +87,7 @@ export type MemberNotFound = {
   message: Scalars["String"];
 };
 
-export type MemberResult = InvitedMember | Member | MemberNotFound;
+export type MemberResult = Member | MemberNotFound;
 
 export type Mutation = {
   __typename?: "Mutation";

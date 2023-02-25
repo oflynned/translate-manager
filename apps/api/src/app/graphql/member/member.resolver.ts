@@ -16,31 +16,12 @@ import { CurrentUser } from "@translate-dashboard/guards";
 import { UserEntity } from "@translate-dashboard/entities";
 import { MemberRoleMapper } from "./member-role.mapper";
 
-@Resolver()
+@Resolver("Member")
 export class MemberResolver {
   constructor(
     private readonly memberService: IMemberService,
     private readonly roleMapper: MemberRoleMapper
   ) {}
-
-  @ResolveField("user")
-  async getUser(@Parent() parent: Member): Promise<UserResult> {
-    const member = await this.memberService.getMember({
-      memberId: parent.id,
-    });
-
-    if (member.err) {
-      return {
-        __typename: "UserNotFound",
-        message: "User does not have an associated member",
-      };
-    }
-
-    return {
-      __typename: "User",
-      ...member.val.user,
-    };
-  }
 
   @Mutation("addMember")
   async addMember(
@@ -63,20 +44,10 @@ export class MemberResolver {
 
     const memberRole = this.roleMapper.toOuter(newMember.val.role);
 
-    if (newMember.val.acceptedInviteAt) {
-      return {
-        __typename: "Member",
-        id: newMember.val.id,
-        addedAt: newMember.val.createdAt,
-        role: memberRole,
-        user: null,
-      };
-    }
-
     return {
-      __typename: "InvitedMember",
+      __typename: "Member",
       id: newMember.val.id,
-      invitedAt: newMember.val.invitedAt,
+      addedAt: newMember.val.createdAt,
       role: memberRole,
       user: null,
     };
@@ -102,6 +73,29 @@ export class MemberResolver {
       addedAt: member.val.invitedAt,
       role: this.roleMapper.toOuter(member.val.role),
       user: null,
+    };
+  }
+
+  @ResolveField("user")
+  async user(@Parent() parent: Member): Promise<UserResult> {
+    const member = await this.memberService.getMember({ memberId: parent.id });
+
+    if (member.err) {
+      return {
+        __typename: "UserNotFound",
+        message: "",
+      };
+    }
+
+    const user = member.val.user;
+
+    return {
+      __typename: "User",
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      lastUpdatedAt: user.lastUpdatedAt,
+      createdAt: user.createdAt,
     };
   }
 }

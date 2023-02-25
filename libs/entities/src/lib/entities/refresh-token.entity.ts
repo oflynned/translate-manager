@@ -7,7 +7,7 @@ export class RefreshTokenEntity extends BaseEntity {
   @Property({ type: "boolean" })
   revoked = false;
 
-  @Property({ type: "datetime" })
+  @Property({ type: "datetime", nullable: true })
   revokedAt?: Date;
 
   @Property({ type: "datetime" })

@@ -24,7 +24,7 @@ export class UserEntity extends BaseEntity {
   @OneToMany(() => OrganisationEntity, (organisation) => organisation.founder)
   founderOf = new Collection<OrganisationEntity>(this);
 
-  @OneToOne(() => MemberEntity, (member) => member.user)
+  @OneToMany(() => MemberEntity, (member) => member.user)
   memberOf = new Collection<MemberEntity>(this);
 
   @OneToMany(() => RefreshTokenEntity, (token) => token.user)

@@ -24,9 +24,9 @@ export abstract class IMemberRepo {
   abstract addMember(
     role: MemberRole,
     user: UserEntity,
-    addedBy: UserEntity,
-    organisation: OrganisationEntity
-  ): Promise<MemberEntity | null>;
+    organisation: OrganisationEntity,
+    addedBy?: MemberEntity
+  ): Promise<MemberEntity>;
   abstract removeMember(member: MemberEntity): Promise<MemberEntity>;
 }
 
@@ -50,15 +50,16 @@ export class MemberRepo implements IMemberRepo {
   async addMember(
     role: MemberRole,
     user: UserEntity,
-    addedBy: UserEntity,
-    organisation: OrganisationEntity
-  ): Promise<MemberEntity | null> {
+    organisation: OrganisationEntity,
+    addedBy?: MemberEntity
+  ): Promise<MemberEntity> {
     const newMember = new MemberEntity();
+
     newMember.organisation = organisation;
     newMember.role = role;
+    newMember.addedBy = addedBy;
     newMember.invitedAt = new Date();
     newMember.user = user;
-    newMember.organisation.members.add(newMember);
 
     await this.repo.persistAndFlush(newMember);
 
@@ -96,5 +97,23 @@ export class MemberRepo implements IMemberRepo {
       organisation: { id: organisationId },
       deletedAt: null,
     });
+  }
+
+  async addFirstMember(
+    user: UserEntity,
+    organisation: OrganisationEntity
+  ): Promise<MemberEntity> {
+    const member = new MemberEntity();
+
+    member.user = user;
+    member.addedBy = member;
+    member.organisation = organisation;
+    member.role = MemberRole.ADMIN;
+    member.invitedAt = new Date();
+    member.acceptedInviteAt = new Date();
+
+    await this.repo.persistAndFlush(member);
+
+    return member;
   }
 }

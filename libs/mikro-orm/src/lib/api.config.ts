@@ -20,6 +20,7 @@ export const getDatabaseConfig = (
   return defineConfig({
     clientUrl: url.val,
     metadataProvider: ReflectMetadataProvider,
+    debug: true,
     entities: [
       UserEntity,
       MemberEntity,

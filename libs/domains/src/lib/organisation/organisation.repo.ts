@@ -13,16 +13,6 @@ export abstract class IOrganisationRepo {
     creator: UserEntity
   ): Promise<OrganisationEntity>;
   abstract findById(id: string): Promise<OrganisationEntity | null>;
-  abstract addMember(
-    organisation: OrganisationEntity,
-    newMember: UserEntity,
-    user: UserEntity
-  ): Promise<MemberEntity[]>;
-  abstract removeMember(
-    organisation: OrganisationEntity,
-    unwantedMember: MemberEntity,
-    user: UserEntity
-  ): Promise<MemberEntity[]>;
   abstract deleteOrganisation(
     organisation: OrganisationEntity
   ): Promise<OrganisationEntity>;
@@ -51,22 +41,6 @@ export class OrganisationRepo implements IOrganisationRepo {
     await this.repo.persistAndFlush(organisation);
 
     return organisation;
-  }
-
-  async addMember(
-    organisation: OrganisationEntity,
-    newMember: UserEntity,
-    addedBy: UserEntity
-  ): Promise<MemberEntity[]> {
-    return [];
-  }
-
-  async removeMember(
-    organisation: OrganisationEntity,
-    unwantedMember: MemberEntity,
-    removedBy: UserEntity
-  ): Promise<MemberEntity[]> {
-    return [];
   }
 
   async deleteOrganisation(
