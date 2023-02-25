@@ -25,7 +25,6 @@ type InvitedMember {
 union MemberResult = Member | InvitedMember | MemberNotFound
 
 extend type Mutation {
-    inviteMember(email: String!, organisationId: ID!): MemberResult!
     addMember(role: Role!, userId: ID!, organisationId: ID!): MemberResult!
     removeMember(userId: ID!, organisationId: ID!): MemberResult!
 }

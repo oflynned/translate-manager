@@ -106,7 +106,6 @@ export type Mutation = {
   createUser: UserResult;
   deleteOrganisation: OrganisationResult;
   deleteUser: UserResult;
-  inviteMember: MemberResult;
   refreshAccessToken: JwtResult;
   removeMember: MemberResult;
   removeTranslation: TermResult;
@@ -147,11 +146,6 @@ export type MutationDeleteOrganisationArgs = {
 
 export type MutationDeleteUserArgs = {
   userId: Scalars["ID"];
-};
-
-export type MutationInviteMemberArgs = {
-  email: Scalars["String"];
-  organisationId: Scalars["ID"];
 };
 
 export type MutationRemoveMemberArgs = {
