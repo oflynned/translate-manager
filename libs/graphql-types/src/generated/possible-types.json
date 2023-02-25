@@ -7,7 +7,7 @@
       "MalformedJwt",
       "RevokedJwt"
     ],
-    "MemberResult": ["InvitedMember", "Member", "MemberNotFound"],
+    "MemberResult": ["Member", "MemberNotFound"],
     "OrganisationResult": [
       "DeletedOrganisation",
       "Organisation",

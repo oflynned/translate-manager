@@ -1,6 +1,7 @@
 import { Result } from "ts-results";
 import { MemberEntity, UserEntity } from "@translate-dashboard/entities";
 import {
+  InvalidMemberException,
   MemberNotFoundException,
   OrganisationNotFoundException,
 } from "@translate-dashboard/exceptions";
@@ -11,7 +12,6 @@ import {
   GetOrganisationMembersDto,
   RemoveMemberDto,
 } from "@translate-dashboard/dto";
-import { InvalidMemberException } from "../../../exceptions/src/lib/member/invalid-member.exception";
 
 export abstract class IMemberService {
   abstract getMembers(
@@ -25,7 +25,7 @@ export abstract class IMemberService {
   ): Promise<Result<MemberEntity, MemberNotFoundException>>;
   abstract addMember(
     dto: AddMemberDto,
-    user: UserEntity
+    user?: UserEntity
   ): Promise<
     Result<MemberEntity, MemberNotFoundException | InvalidMemberException>
   >;

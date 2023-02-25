@@ -21,13 +21,23 @@ export class UserRepo implements IUserRepo {
   ) {}
 
   async create(name: string, email: string, hash: string): Promise<UserEntity> {
+    console.log({ name, email, hash });
+    console.log("a");
     const user = new UserEntity();
+    console.log("b");
 
     user.name = name;
     user.email = email;
     user.hash = hash;
+    console.log("c");
 
-    await this.repo.persistAndFlush(user);
+    try {
+      await this.repo.persistAndFlush(user);
+      console.log("all g");
+    } catch (e) {
+      console.error(e);
+    }
+    console.log("d");
 
     return user;
   }

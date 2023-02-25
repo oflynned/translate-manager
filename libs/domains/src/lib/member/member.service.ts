@@ -1,7 +1,12 @@
 import { Injectable } from "@nestjs/common";
 import { IMemberRepo } from "./member.repo";
 import { Err, Ok, Result } from "ts-results";
-import { MemberEntity, UserEntity } from "@translate-dashboard/entities";
+import {
+  MemberEntity,
+  MemberRole,
+  OrganisationEntity,
+  UserEntity,
+} from "@translate-dashboard/entities";
 import {
   IMemberService,
   IOrganisationService,
@@ -77,24 +82,41 @@ export class MemberService implements IMemberService {
     return Ok(members);
   }
 
-  async addMember(
-    dto: AddMemberDto,
-    addedByUser: UserEntity
-  ): Promise<Result<MemberEntity, MemberNotFoundException>> {
-    const user = await this.userService.getUserById({ id: dto.userId });
-    const organisation = await this.organisationService.getOrganisationById({
-      id: dto.organisationId,
-    });
+  private async addInitialMember(
+    user: UserEntity,
+    organisation: OrganisationEntity
+  ): Promise<Result<MemberEntity, never>> {
+    const member = await this.repo.addMember(
+      MemberRole.ADMIN,
+      user,
+      organisation
+    );
 
-    if (user.err || organisation.err) {
+    return Ok(member);
+  }
+
+  private async addSubsequentMembers(
+    role: MemberRole,
+    userBeingAdded: UserEntity,
+    addedByUser: UserEntity,
+    organisation: OrganisationEntity
+  ): Promise<Result<MemberEntity, MemberNotFoundException>> {
+    const addedBy = await this.repo.getOrganisationMember(
+      addedByUser.id,
+      organisation.id
+    );
+
+    if (!addedBy) {
       return Err(
-        new InvalidMemberException("User or organisation does not exist")
+        new InvalidMemberException(
+          "User adding new member is not part of the organisation"
+        )
       );
     }
 
     const existingMember = await this.repo.getOrganisationMember(
-      dto.userId,
-      dto.organisationId
+      userBeingAdded.id,
+      organisation.id
     );
 
     if (existingMember) {
@@ -102,17 +124,42 @@ export class MemberService implements IMemberService {
     }
 
     const member = await this.repo.addMember(
+      role,
+      userBeingAdded,
+      organisation,
+      addedBy
+    );
+
+    return Ok(member);
+  }
+
+  async addMember(
+    dto: AddMemberDto,
+    addedByUser: UserEntity
+  ): Promise<Result<MemberEntity, MemberNotFoundException>> {
+    const userBeingAdded = await this.userService.getUserById({
+      id: dto.userId,
+    });
+    const organisation = await this.organisationService.getOrganisationById({
+      id: dto.organisationId,
+    });
+
+    if (userBeingAdded.err || organisation.err) {
+      return Err(
+        new InvalidMemberException("User or organisation does not exist")
+      );
+    }
+
+    if (addedByUser.id === dto.userId) {
+      return this.addInitialMember(userBeingAdded.val, organisation.val);
+    }
+
+    return this.addSubsequentMembers(
       dto.role,
-      user.val,
+      userBeingAdded.val,
       addedByUser,
       organisation.val
     );
-
-    if (!member) {
-      return Err(new InvalidMemberException());
-    }
-
-    return Ok(member);
   }
 
   async removeMember(

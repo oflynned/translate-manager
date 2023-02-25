@@ -9,9 +9,9 @@ export class BaseEntity {
   @Property({ type: "datetime" })
   createdAt = new Date();
 
-  @Property({ type: "datetime" })
+  @Property({ type: "datetime", nullable: true })
   lastUpdatedAt?: Date;
 
-  @Property({ type: "datetime" })
+  @Property({ type: "datetime", nullable: true })
   deletedAt?: Date;
 }

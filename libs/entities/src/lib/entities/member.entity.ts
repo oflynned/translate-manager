@@ -9,17 +9,17 @@ export class MemberEntity extends BaseEntity {
   @Property({ type: "datetime" })
   invitedAt!: Date;
 
-  @Property({ type: "datetime" })
+  @Property({ type: "datetime", nullable: true })
   acceptedInviteAt?: Date;
 
   @Enum(() => MemberRole)
   role!: MemberRole;
 
-  @OneToOne(() => UserEntity)
+  @ManyToOne(() => UserEntity)
   user!: UserEntity;
 
-  @OneToOne(() => MemberEntity)
-  addedBy!: MemberEntity;
+  @OneToOne(() => MemberEntity, { nullable: true })
+  addedBy?: MemberEntity;
 
   @ManyToOne(() => OrganisationEntity)
   organisation!: OrganisationEntity;
