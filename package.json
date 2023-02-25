@@ -8,6 +8,7 @@
     "lint:api": "nx run api:lint",
     "migrate:create": "MIKRO_ORM_CLI_TS_CONFIG_PATH=tsconfig.base.json mikro-orm migration:create",
     "migrate:up": "MIKRO_ORM_CLI_TS_CONFIG_PATH=tsconfig.base.json mikro-orm migration:up",
+    "test": "jest",
     "typecheck:api": "tsc --noEmit --project ./apps/api/tsconfig.json",
     "typecheck:dashboard": "tsc --noEmit --project ./apps/dashboard/tsconfig.json",
     "types:generate": "nx run graphql-types:generate-types"
