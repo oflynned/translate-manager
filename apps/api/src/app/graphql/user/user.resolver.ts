@@ -5,7 +5,7 @@ import { UserMapper, UserResult } from "@translate-manager/graphql-types";
 import { IUserService } from "@translate-dashboard/service-definitions";
 import { AccessTokenGuard, CurrentUser } from "@translate-dashboard/guards";
 
-@Resolver()
+@Resolver("User")
 @Injectable()
 export class UserResolver {
   constructor(

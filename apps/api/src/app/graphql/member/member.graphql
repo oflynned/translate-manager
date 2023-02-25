@@ -15,14 +15,7 @@ type Member {
     user: UserResult
 }
 
-type InvitedMember {
-    id: ID!
-    invitedAt: DateTime!
-    role: Role!
-    user: UserResult
-}
-
-union MemberResult = Member | InvitedMember | MemberNotFound
+union MemberResult = Member | MemberNotFound
 
 extend type Mutation {
     addMember(role: Role!, userId: ID!, organisationId: ID!): MemberResult!

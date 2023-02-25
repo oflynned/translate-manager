@@ -7,23 +7,29 @@ import {
   Resolver,
 } from "@nestjs/graphql";
 import {
+  MemberResult,
   Organisation,
   OrganisationMapper,
   OrganisationResult,
+  Role,
   UserMapper,
   UserResult,
 } from "@translate-manager/graphql-types";
-import { UserEntity } from "@translate-dashboard/entities";
+import { MemberRole, UserEntity } from "@translate-dashboard/entities";
 import { DeleteOrganisationDto } from "@translate-dashboard/dto";
 import { UseGuards } from "@nestjs/common";
-import { IOrganisationService } from "@translate-dashboard/service-definitions";
+import {
+  IMemberService,
+  IOrganisationService,
+} from "@translate-dashboard/service-definitions";
 import { AccessTokenGuard, CurrentUser } from "@translate-dashboard/guards";
 
-@Resolver()
+@Resolver("Organisation")
 @UseGuards(AccessTokenGuard)
 export class OrganisationResolver {
   constructor(
     private readonly organisationService: IOrganisationService,
+    private readonly memberService: IMemberService,
     private readonly organisationMapper: OrganisationMapper,
     private readonly userMapper: UserMapper
   ) {}
@@ -58,6 +64,15 @@ export class OrganisationResolver {
       return this.organisationMapper.toError(organisation.val);
     }
 
+    await this.memberService.addMember(
+      {
+        userId: user.id,
+        organisationId: organisation.val.id,
+        role: MemberRole.ADMIN,
+      },
+      user
+    );
+
     return this.organisationMapper.toResult(organisation.val);
   }
   @Mutation("deleteOrganisation")
@@ -79,9 +94,9 @@ export class OrganisationResolver {
   }
 
   @ResolveField("founder")
-  async founder(@Parent() organisation: Organisation): Promise<UserResult> {
+  async founder(@Parent() parent: Organisation): Promise<UserResult> {
     const founder = await this.organisationService.getOrganisationFounder({
-      organisationId: organisation.id,
+      organisationId: parent.id,
     });
 
     if (founder.err) {
@@ -89,5 +104,27 @@ export class OrganisationResolver {
     }
 
     return this.userMapper.toResult(founder.val);
+  }
+
+  @ResolveField("members")
+  async members(@Parent() parent: Organisation): Promise<MemberResult[]> {
+    const members = await this.memberService.getMembers({
+      organisationId: parent.id,
+    });
+
+    if (members.err) {
+      return [];
+    }
+
+    return members.val.map((member) => {
+      return {
+        __typename: "Member",
+        id: member.id,
+        addedAt: member.createdAt,
+        // role: this.memberRoleMapper.toOuter(member.role),
+        role: Role.Admin,
+        user: null,
+      };
+    });
   }
 }

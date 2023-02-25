@@ -17,6 +17,7 @@ import {
   OrganisationModule,
   UserModule,
 } from "@translate-dashboard/domains";
+import { MemberGraphqlModule } from "./graphql/member/member.module";
 
 @Module({
   imports: [
@@ -51,6 +52,7 @@ import {
     UserGraphQLModule,
     JwtGraphQLModule,
     OrganisationGraphqlModule,
+    MemberGraphqlModule,
   ],
 })
 export class ApiModule {}
