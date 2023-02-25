@@ -329,6 +329,26 @@
           "length": 6,
           "mappedType": "datetime"
         },
+        "invited_at": {
+          "name": "invited_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "accepted_invite_at": {
+          "name": "accepted_invite_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
         "role": {
           "name": "role",
           "type": "text",
@@ -345,6 +365,15 @@
         },
         "user_id": {
           "name": "user_id",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "added_by_id": {
+          "name": "added_by_id",
           "type": "varchar(255)",
           "unsigned": false,
           "autoincrement": false,
@@ -375,6 +404,15 @@
           "unique": true
         },
         {
+          "columnNames": [
+            "added_by_id"
+          ],
+          "composite": false,
+          "keyName": "member_entity_added_by_id_unique",
+          "primary": false,
+          "unique": true
+        },
+        {
           "keyName": "member_entity_pkey",
           "columnNames": [
             "id"
@@ -396,6 +434,18 @@
             "id"
           ],
           "referencedTableName": "public.user_entity",
+          "updateRule": "cascade"
+        },
+        "member_entity_added_by_id_foreign": {
+          "constraintName": "member_entity_added_by_id_foreign",
+          "columnNames": [
+            "added_by_id"
+          ],
+          "localTableName": "public.member_entity",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.member_entity",
           "updateRule": "cascade"
         },
         "member_entity_organisation_id_foreign": {
