@@ -31,39 +31,29 @@ export class UserService implements IUserService {
   ): Promise<
     Result<UserEntity, InvalidUserException | InvalidPasswordException>
   > {
-    console.log(1);
-
     const payload = this.createUserSchema.validate(dto);
-    console.log(2);
 
     if (payload.err) {
       return Err(new InvalidUserException());
     }
 
-    console.log(3);
     const existingUser = await this.repo.getByEmail(dto.email);
-    console.log(4);
 
     if (existingUser) {
       return Ok(existingUser);
     }
-    console.log(5);
 
     const hash = await this.hashingService.toHash(dto.password);
-    console.log(6);
 
     if (hash.err) {
       return Err(new InvalidUserException());
     }
-    console.log(7);
 
     const user = await this.repo.create(dto.name, dto.email, hash.val);
-    console.log(8);
 
     if (!user) {
       return Err(new InvalidUserException());
     }
-    console.log(9);
 
     return Ok(user);
   }

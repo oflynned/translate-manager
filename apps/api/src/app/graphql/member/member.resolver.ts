@@ -78,7 +78,6 @@ export class MemberResolver {
 
   @ResolveField("user")
   async user(@Parent() parent: Member): Promise<UserResult> {
-    console.log("here?");
     const member = await this.memberService.getMember({ memberId: parent.id });
 
     if (member.err) {
