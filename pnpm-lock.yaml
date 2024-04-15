@@ -59,7 +59,7 @@ specifiers:
   eslint: 8.32.0
   eslint-config-next: 13.1.2
   eslint-config-prettier: 8.1.0
-  eslint-plugin-cypress: 2.10.3
+  eslint-plugin-cypress: 2.15.2
   eslint-plugin-import: 2.26.0
   eslint-plugin-jsx-a11y: 6.6.1
   eslint-plugin-react: 7.31.11
@@ -169,7 +169,7 @@ devDependencies:
   eslint: 8.32.0
   eslint-config-next: 13.1.2_7uibuqfxkfaozanbtbziikiqje
   eslint-config-prettier: 8.1.0_eslint@8.32.0
-  eslint-plugin-cypress: 2.10.3_eslint@8.32.0
+  eslint-plugin-cypress: 2.15.2_eslint@8.32.0
   eslint-plugin-import: 2.26.0_naf23nfkkpfchcovsgi6l5tftu
   eslint-plugin-jsx-a11y: 6.6.1_eslint@8.32.0
   eslint-plugin-react: 7.31.11_eslint@8.32.0
@@ -3832,7 +3832,7 @@ packages:
       '@nrwl/workspace': 15.7.2_l27ptbbgosyywejtdzamzs6pmq
       babel-plugin-const-enum: 1.2.0_@babel+core@7.21.0
       babel-plugin-macros: 2.8.0
-      babel-plugin-transform-typescript-metadata: 0.3.2
+      babel-plugin-transform-typescript-metadata: 0.3.2_@babel+core@7.21.0
       chalk: 4.1.2
       fast-glob: 3.2.7
       fs-extra: 11.1.0
@@ -3843,6 +3843,7 @@ packages:
       tree-kill: 1.2.2
       tslib: 2.3.0
     transitivePeerDependencies:
+      - '@babel/traverse'
       - '@swc-node/register'
       - '@swc/core'
       - debug
@@ -3882,6 +3883,7 @@ packages:
       enquirer: 2.3.6
     transitivePeerDependencies:
       - '@babel/core'
+      - '@babel/traverse'
       - '@parcel/css'
       - '@swc-node/register'
       - '@swc/core'
@@ -3937,6 +3939,7 @@ packages:
       webpack-merge: 5.8.0
     transitivePeerDependencies:
       - '@babel/core'
+      - '@babel/traverse'
       - '@parcel/css'
       - '@swc-node/register'
       - '@swc/core'
@@ -3978,6 +3981,7 @@ packages:
       tslib: 2.3.0
     transitivePeerDependencies:
       - '@babel/core'
+      - '@babel/traverse'
       - '@parcel/css'
       - '@swc-node/register'
       - '@swc/core'
@@ -4146,6 +4150,7 @@ packages:
       tslib: 2.3.0
     transitivePeerDependencies:
       - '@babel/core'
+      - '@babel/traverse'
       - '@swc-node/register'
       - '@swc/core'
       - '@types/babel__core'
@@ -4186,6 +4191,7 @@ packages:
       tslib: 2.3.0
     transitivePeerDependencies:
       - '@babel/core'
+      - '@babel/traverse'
       - '@swc-node/register'
       - '@swc/core'
       - '@types/babel__core'
@@ -4246,6 +4252,7 @@ packages:
       webpack-subresource-integrity: 5.1.0_webpack@5.75.0
     transitivePeerDependencies:
       - '@babel/core'
+      - '@babel/traverse'
       - '@parcel/css'
       - '@swc-node/register'
       - '@swc/core'
@@ -6268,9 +6275,16 @@ packages:
     resolution: {integrity: sha512-WpOrF76nUHijnNn10eBGOHZmXQC8JYRME9rOLxStOga7Av2VO53ehVFvVNImMksVtQuL2/7ZNxEgxnx7oo/3Hw==}
     dev: true
 
-  /babel-plugin-transform-typescript-metadata/0.3.2:
+  /babel-plugin-transform-typescript-metadata/0.3.2_@babel+core@7.21.0:
     resolution: {integrity: sha512-mWEvCQTgXQf48yDqgN7CH50waTyYBeP2Lpqx4nNWab9sxEpdXVeKgfj1qYI2/TgUPQtNFZ85i3PemRtnXVYYJg==}
+    peerDependencies:
+      '@babel/core': ^7
+      '@babel/traverse': ^7
+    peerDependenciesMeta:
+      '@babel/traverse':
+        optional: true
     dependencies:
+      '@babel/core': 7.21.0
       '@babel/helper-plugin-utils': 7.20.2
     dev: true
 
@@ -8129,13 +8143,13 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-cypress/2.10.3_eslint@8.32.0:
-    resolution: {integrity: sha512-CvFeoCquShfO8gHNIKA1VpUTz78WtknMebLemBd1lRbcmJNjwpqCqpQYUG/XVja8GjdX/e2TJXYa+EUBxehtUg==}
+  /eslint-plugin-cypress/2.15.2_eslint@8.32.0:
+    resolution: {integrity: sha512-CtcFEQTDKyftpI22FVGpx8bkpKyYXBlNge6zSo0pl5/qJvBAnzaD76Vu2AsP16d6mTj478Ldn2mhgrWV+Xr0vQ==}
     peerDependencies:
       eslint: '>= 3.2.1'
     dependencies:
       eslint: 8.32.0
-      globals: 11.12.0
+      globals: 13.20.0
     dev: true
 
   /eslint-plugin-import/2.26.0_gmuffu5n6cmtmzytbkjcfrvfni:
