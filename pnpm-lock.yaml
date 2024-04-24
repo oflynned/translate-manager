@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@babel/core': 7.21.0
   '@babel/preset-react': 7.14.5
-  '@faker-js/faker': 7.6.0
+  '@faker-js/faker': 8.4.1
   '@graphql-codegen/cli': 2.6.2
   '@graphql-codegen/fragment-matcher': 3.2.1
   '@graphql-codegen/introspection': 2.1.1
@@ -136,7 +136,7 @@ dependencies:
 devDependencies:
   '@babel/core': 7.21.0
   '@babel/preset-react': 7.14.5_@babel+core@7.21.0
-  '@faker-js/faker': 7.6.0
+  '@faker-js/faker': 8.4.1
   '@mikro-orm/cli': 5.6.11_gszualiimpoo2t6ouvufqy4i3a
   '@nestjs/schematics': 9.0.0_typescript@4.9.4
   '@nestjs/testing': 9.0.0_zydib2cqsk5zptdaptxar77ncy
@@ -2008,9 +2008,9 @@ packages:
       - supports-color
     dev: true
 
-  /@faker-js/faker/7.6.0:
-    resolution: {integrity: sha512-XK6BTq1NDMo9Xqw/YkYyGjSsg44fbNwYRx7QK2CuoQgyy+f1rrTDHoExVM5PsyXCtfl2vs2vVJ0MN0yN6LppRw==}
-    engines: {node: '>=14.0.0', npm: '>=6.0.0'}
+  /@faker-js/faker/8.4.1:
+    resolution: {integrity: sha512-XQ3cU+Q8Uqmrbf2e0cIC/QN43sTBSC8KF12u29Mb47tWrt2hAgBXSgpZMj4Ao8Uk0iJcU99QsOCaIL8934obCg==}
+    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0, npm: '>=6.14.13'}
     dev: true
 
   /@graphql-codegen/add/3.2.3_graphql@16.6.0:
@@ -3832,7 +3832,7 @@ packages:
       '@nrwl/workspace': 15.7.2_l27ptbbgosyywejtdzamzs6pmq
       babel-plugin-const-enum: 1.2.0_@babel+core@7.21.0
       babel-plugin-macros: 2.8.0
-      babel-plugin-transform-typescript-metadata: 0.3.2
+      babel-plugin-transform-typescript-metadata: 0.3.2_@babel+core@7.21.0
       chalk: 4.1.2
       fast-glob: 3.2.7
       fs-extra: 11.1.0
@@ -3843,6 +3843,7 @@ packages:
       tree-kill: 1.2.2
       tslib: 2.3.0
     transitivePeerDependencies:
+      - '@babel/traverse'
       - '@swc-node/register'
       - '@swc/core'
       - debug
@@ -3882,6 +3883,7 @@ packages:
       enquirer: 2.3.6
     transitivePeerDependencies:
       - '@babel/core'
+      - '@babel/traverse'
       - '@parcel/css'
       - '@swc-node/register'
       - '@swc/core'
@@ -3937,6 +3939,7 @@ packages:
       webpack-merge: 5.8.0
     transitivePeerDependencies:
       - '@babel/core'
+      - '@babel/traverse'
       - '@parcel/css'
       - '@swc-node/register'
       - '@swc/core'
@@ -3978,6 +3981,7 @@ packages:
       tslib: 2.3.0
     transitivePeerDependencies:
       - '@babel/core'
+      - '@babel/traverse'
       - '@parcel/css'
       - '@swc-node/register'
       - '@swc/core'
@@ -4146,6 +4150,7 @@ packages:
       tslib: 2.3.0
     transitivePeerDependencies:
       - '@babel/core'
+      - '@babel/traverse'
       - '@swc-node/register'
       - '@swc/core'
       - '@types/babel__core'
@@ -4186,6 +4191,7 @@ packages:
       tslib: 2.3.0
     transitivePeerDependencies:
       - '@babel/core'
+      - '@babel/traverse'
       - '@swc-node/register'
       - '@swc/core'
       - '@types/babel__core'
@@ -4246,6 +4252,7 @@ packages:
       webpack-subresource-integrity: 5.1.0_webpack@5.75.0
     transitivePeerDependencies:
       - '@babel/core'
+      - '@babel/traverse'
       - '@parcel/css'
       - '@swc-node/register'
       - '@swc/core'
@@ -6268,9 +6275,16 @@ packages:
     resolution: {integrity: sha512-WpOrF76nUHijnNn10eBGOHZmXQC8JYRME9rOLxStOga7Av2VO53ehVFvVNImMksVtQuL2/7ZNxEgxnx7oo/3Hw==}
     dev: true
 
-  /babel-plugin-transform-typescript-metadata/0.3.2:
+  /babel-plugin-transform-typescript-metadata/0.3.2_@babel+core@7.21.0:
     resolution: {integrity: sha512-mWEvCQTgXQf48yDqgN7CH50waTyYBeP2Lpqx4nNWab9sxEpdXVeKgfj1qYI2/TgUPQtNFZ85i3PemRtnXVYYJg==}
+    peerDependencies:
+      '@babel/core': ^7
+      '@babel/traverse': ^7
+    peerDependenciesMeta:
+      '@babel/traverse':
+        optional: true
     dependencies:
+      '@babel/core': 7.21.0
       '@babel/helper-plugin-utils': 7.20.2
     dev: true
 
