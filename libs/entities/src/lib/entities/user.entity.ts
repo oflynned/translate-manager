@@ -1,10 +1,4 @@
-import {
-  OneToMany,
-  Entity,
-  Property,
-  Collection,
-  OneToOne,
-} from "@mikro-orm/core";
+import { OneToMany, Entity, Property, Collection } from "@mikro-orm/core";
 import { BaseEntity } from "./base.entity";
 import { MemberEntity } from "./member.entity";
 import { RefreshTokenEntity } from "./refresh-token.entity";

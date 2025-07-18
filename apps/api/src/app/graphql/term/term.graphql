@@ -5,12 +5,13 @@ enum Gender {
 
 type Term {
     id: ID!
+    title: String!
     domain: String!
     declension: Int!
     gender: Gender!
-    term: String!
     languageCode: String!
     translations: [Translation!]
+    missingLanguageCodes: [String!]
     addedBy: UserResult
 }
 
@@ -26,12 +27,12 @@ type TermNotFound {
 union TermResult = Term | TermNotFound
 
 extend type Query {
-    getTermsByDomain(domain:String): [TermResult!]
-    getTerms: [TermResult!]
-    getUntranslatedTerms: [TermResult!]
+    getTerm(termId: ID!): TermResult!
+    getTerms(organisationId: ID!, domain: String, translated: Boolean): [TermResult!]!
 }
 
 extend type Mutation {
-    setTranslations(termId: ID!, translations: [String!]!, languageCode: String!): TermResult!
-    removeTranslation(termId: ID!): TermResult!
+    createNewTerm(organisationId: ID!, title: String!, domain: String!, gender: Gender!, declension: Int!): TermResult!
+    addTranslations(termId: ID!, translations: [String!]!, languageCode: String!): TermResult!
+    removeTranslations(termId: ID!, languageCode: String): TermResult!
 }

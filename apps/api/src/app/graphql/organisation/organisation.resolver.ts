@@ -11,7 +11,6 @@ import {
   Organisation,
   OrganisationMapper,
   OrganisationResult,
-  Role,
   UserMapper,
   UserResult,
 } from "@translate-manager/graphql-types";
@@ -23,6 +22,7 @@ import {
   IOrganisationService,
 } from "@translate-dashboard/service-definitions";
 import { AccessTokenGuard, CurrentUser } from "@translate-dashboard/guards";
+import { MemberRoleMapper } from "@translate-dashboard/domains";
 
 @Resolver("Organisation")
 @UseGuards(AccessTokenGuard)
@@ -31,7 +31,8 @@ export class OrganisationResolver {
     private readonly organisationService: IOrganisationService,
     private readonly memberService: IMemberService,
     private readonly organisationMapper: OrganisationMapper,
-    private readonly userMapper: UserMapper
+    private readonly userMapper: UserMapper,
+    private readonly roleMapper: MemberRoleMapper
   ) {}
 
   @Query("getOrganisationById")
@@ -116,15 +117,12 @@ export class OrganisationResolver {
       return [];
     }
 
-    return members.val.map((member) => {
-      return {
-        __typename: "Member",
-        id: member.id,
-        addedAt: member.createdAt,
-        // role: this.memberRoleMapper.toOuter(member.role),
-        role: Role.Admin,
-        user: null,
-      };
-    });
+    return members.val.map((member) => ({
+      __typename: "Member",
+      id: member.id,
+      addedAt: member.createdAt,
+      role: this.roleMapper.toOuter(member.role),
+      user: null,
+    }));
   }
 }

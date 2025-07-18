@@ -15,7 +15,7 @@ import {
   InvalidOrganisationException,
 } from "@translate-dashboard/exceptions";
 import { IOrganisationService } from "@translate-dashboard/service-definitions";
-import { CreateOrganisationSchema } from "../../../../schema-validator/src/lib/create-organisation.schema";
+import { CreateOrganisationSchema } from "@translate-dashboard/schema-validator";
 
 @Injectable()
 export class OrganisationService implements IOrganisationService {

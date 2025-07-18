@@ -15,9 +15,11 @@ import {
   HashingModule,
   MemberModule,
   OrganisationModule,
+  TermModule,
   UserModule,
 } from "@translate-dashboard/domains";
 import { MemberGraphqlModule } from "./graphql/member/member.module";
+import { TermGraphqlModule } from "./graphql/term/term.module";
 
 @Module({
   imports: [
@@ -32,27 +34,27 @@ import { MemberGraphqlModule } from "./graphql/member/member.module";
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
       imports: [ApiConfigModule],
-      useFactory: () => {
-        return {
-          cache: "bounded",
-          allowBatchedHttpRequests: true,
-          useGlobalPrefix: true,
-          playground: true,
-          debug: true,
-          typePaths: ["**/*.graphql"],
-        };
-      },
+      useFactory: () => ({
+        cache: "bounded",
+        allowBatchedHttpRequests: true,
+        useGlobalPrefix: true,
+        playground: true,
+        debug: true,
+        typePaths: ["**/*.graphql"],
+      }),
     }),
     AuthenticationModule,
     AuthorisationModule,
     HashingModule,
-    MemberModule,
-    OrganisationModule,
+    JwtGraphQLModule,
     UserModule,
     UserGraphQLModule,
-    JwtGraphQLModule,
+    OrganisationModule,
     OrganisationGraphqlModule,
+    MemberModule,
     MemberGraphqlModule,
+    TermModule,
+    TermGraphqlModule,
   ],
 })
 export class ApiModule {}

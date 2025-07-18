@@ -14,7 +14,7 @@ import {
 } from "@translate-manager/graphql-types";
 import { CurrentUser } from "@translate-dashboard/guards";
 import { UserEntity } from "@translate-dashboard/entities";
-import { MemberRoleMapper } from "./member-role.mapper";
+import { MemberRoleMapper } from "../../../../../../libs/domains/src/lib/member/member-role.mapper";
 
 @Resolver("Member")
 export class MemberResolver {

@@ -6,6 +6,7 @@ import { IMemberRepo, MemberRepo } from "./member.repo";
 import { IMemberService } from "@translate-dashboard/service-definitions";
 import { MemberService } from "./member.service";
 import { UserModule } from "../user";
+import { MemberRoleMapper } from "./member-role.mapper";
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { UserModule } from "../user";
       provide: IMemberService,
       useClass: MemberService,
     },
+    MemberRoleMapper,
   ],
-  exports: [IMemberService],
+  exports: [IMemberService, MemberRoleMapper],
 })
 export class MemberModule {}

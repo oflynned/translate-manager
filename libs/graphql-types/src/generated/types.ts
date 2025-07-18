@@ -184,9 +184,7 @@ export type Query = {
   getMe: UserResult;
   getOrganisationById: OrganisationResult;
   getTerms?: Maybe<Array<TermResult>>;
-  getTermsByDomain?: Maybe<Array<TermResult>>;
   getTime: Scalars["DateTime"];
-  getUntranslatedTerms?: Maybe<Array<TermResult>>;
   getUserById: UserResult;
 };
 
@@ -194,8 +192,10 @@ export type QueryGetOrganisationByIdArgs = {
   organisationId: Scalars["ID"];
 };
 
-export type QueryGetTermsByDomainArgs = {
+export type QueryGetTermsArgs = {
   domain?: InputMaybe<Scalars["String"]>;
+  organisationId: Scalars["ID"];
+  translated?: InputMaybe<Scalars["Boolean"]>;
 };
 
 export type QueryGetUserByIdArgs = {
@@ -221,7 +221,8 @@ export type Term = {
   gender: Gender;
   id: Scalars["ID"];
   languageCode: Scalars["String"];
-  term: Scalars["String"];
+  missingLanguageCodes?: Maybe<Array<Scalars["String"]>>;
+  title: Scalars["String"];
   translations?: Maybe<Array<Translation>>;
 };
 

@@ -1,8 +1,17 @@
 import { UserEntity } from "./user.entity";
 import { OrganisationEntity } from "./organisation.entity";
 import { BaseEntity } from "./base.entity";
-import { Entity, Enum, ManyToOne, OneToOne, Property } from "@mikro-orm/core";
+import {
+  Collection,
+  Entity,
+  Enum,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+  Property,
+} from "@mikro-orm/core";
 import { MemberRole } from "./role";
+import { TermEntity } from "./term.entity";
 
 @Entity()
 export class MemberEntity extends BaseEntity {
@@ -23,4 +32,7 @@ export class MemberEntity extends BaseEntity {
 
   @ManyToOne(() => OrganisationEntity)
   organisation!: OrganisationEntity;
+
+  @OneToMany(() => TermEntity, (term) => term.addedBy)
+  terms = new Collection<TermEntity>(this);
 }

@@ -1,9 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import {
-  MemberEntity,
-  OrganisationEntity,
-  UserEntity,
-} from "@translate-dashboard/entities";
+import { OrganisationEntity, UserEntity } from "@translate-dashboard/entities";
 import { InjectRepository } from "@mikro-orm/nestjs";
 import { EntityRepository } from "@mikro-orm/postgresql";
 

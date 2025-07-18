@@ -8,6 +8,7 @@ import {
   Property,
 } from "@mikro-orm/core";
 import { MemberEntity } from "./member.entity";
+import { TermEntity } from "./term.entity";
 
 @Entity()
 export class OrganisationEntity extends BaseEntity {
@@ -19,4 +20,7 @@ export class OrganisationEntity extends BaseEntity {
 
   @OneToMany(() => MemberEntity, (member) => member.organisation)
   members = new Collection<MemberEntity>(this);
+
+  @OneToMany(() => TermEntity, (term) => term.organisation)
+  terms = new Collection<TermEntity>(this);
 }

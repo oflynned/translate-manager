@@ -4,6 +4,8 @@ import {
   MemberEntity,
   OrganisationEntity,
   RefreshTokenEntity,
+  TermEntity,
+  TranslationEntity,
   UserEntity,
 } from "@translate-dashboard/entities";
 import { ReflectMetadataProvider } from "@mikro-orm/core";
@@ -22,10 +24,12 @@ export const getDatabaseConfig = (
     metadataProvider: ReflectMetadataProvider,
     debug: true,
     entities: [
-      UserEntity,
       MemberEntity,
       OrganisationEntity,
       RefreshTokenEntity,
+      TermEntity,
+      TranslationEntity,
+      UserEntity,
     ],
   });
 };
